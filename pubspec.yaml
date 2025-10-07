@@ -1,5 +1,5 @@
-name: multiply_fast
-description: "A new Flutter project."
+name: multiplication_trainer
+description: "A Flutter application for multiplication table practice and training."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
