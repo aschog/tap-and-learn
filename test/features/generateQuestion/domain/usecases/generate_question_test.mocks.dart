@@ -8,9 +8,9 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:multiply_fast/core/error/faiures.dart' as _i5;
-import 'package:multiply_fast/features/generateQustion/domain/entities/question.dart'
+import 'package:multiply_fast/features/generateQuestion/domain/entities/question.dart'
     as _i6;
-import 'package:multiply_fast/features/generateQustion/domain/repositories/practice_repository.dart'
+import 'package:multiply_fast/features/generateQuestion/domain/repositories/practice_repository.dart'
     as _i3;
 
 // ignore_for_file: type=lint

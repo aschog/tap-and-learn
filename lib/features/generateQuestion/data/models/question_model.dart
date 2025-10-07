@@ -1,4 +1,4 @@
-import 'package:multiply_fast/features/generateQustion/domain/entities/question.dart';
+import 'package:multiply_fast/features/generateQuestion/domain/entities/question.dart';
 
 class QuestionModel extends Question {
   QuestionModel({
