@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_data_source.dart'
+import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_local_data_source.dart'
     as _i3;
 import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart'
     as _i2;
@@ -32,23 +32,24 @@ class _FakeMultiplicationExerciseModel_0 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [ArithmeticDataSource].
+/// A class which mocks [ArithmeticLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockArithmeticDataSource extends _i1.Mock
-    implements _i3.ArithmeticDataSource {
-  MockArithmeticDataSource() {
+class MockArithmeticLocalDataSource extends _i1.Mock
+    implements _i3.ArithmeticLocalDataSource {
+  MockArithmeticLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.MultiplicationExerciseModel> generateQuestion() =>
+  _i4.Future<_i2.MultiplicationExerciseModel>
+  generateMultiplicationExercise() =>
       (super.noSuchMethod(
-            Invocation.method(#generateQuestion, []),
+            Invocation.method(#generateMultiplicationExercise, []),
             returnValue: _i4.Future<_i2.MultiplicationExerciseModel>.value(
               _FakeMultiplicationExerciseModel_0(
                 this,
-                Invocation.method(#generateQuestion, []),
+                Invocation.method(#generateMultiplicationExercise, []),
               ),
             ),
           )

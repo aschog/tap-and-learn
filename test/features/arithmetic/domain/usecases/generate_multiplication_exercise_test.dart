@@ -18,20 +18,17 @@ void main() {
     usecase = GenerateMultiplicationExercise(mockPracticeRepository);
   });
 
-  final tMultiplicand = 2;
-  final tMultiplier = 3;
-  final tProduct = MultiplicationExercise(
-    multiplicand: tMultiplicand,
-    multiplier: tMultiplier,
-    product: tMultiplicand * tMultiplier,
+  final tMultiplicationExercise = MultiplicationExercise(
+    multiplicand: 2,
+    multiplier: 3,
   );
 
   test('should calculate correct answer', () async {
     when(
       mockPracticeRepository.generateMultiplicationExercise(),
-    ).thenAnswer((_) async => Right(tProduct));
+    ).thenAnswer((_) async => Right(tMultiplicationExercise));
     final result = await usecase(NoParams());
-    expect(result, Right(tProduct));
+    expect(result, Right(tMultiplicationExercise));
     verify(mockPracticeRepository.generateMultiplicationExercise());
     verifyNoMoreInteractions(mockPracticeRepository);
   });

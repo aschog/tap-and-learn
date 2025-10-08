@@ -1,10 +1,13 @@
-class MultiplicationExercise {
+import 'package:equatable/equatable.dart';
+
+class MultiplicationExercise extends Equatable {
   final int multiplicand;
   final int multiplier;
-  final int product;
   MultiplicationExercise({
     required this.multiplicand,
     required this.multiplier,
-    required this.product,
   });
+
+  @override
+  List<Object> get props => [multiplicand, multiplier];
 }

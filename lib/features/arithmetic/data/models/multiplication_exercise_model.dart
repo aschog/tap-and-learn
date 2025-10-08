@@ -4,6 +4,5 @@ class MultiplicationExerciseModel extends MultiplicationExercise {
   MultiplicationExerciseModel({
     required super.multiplicand,
     required super.multiplier,
-    required super.product,
   });
 }

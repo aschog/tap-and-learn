@@ -6,7 +6,6 @@ void main() {
   final tMultiplicationExerciseModel = MultiplicationExerciseModel(
     multiplicand: 2,
     multiplier: 3,
-    product: 6,
   );
 
   test('should be a subclass of MultiplicationExercise entity', () async {
