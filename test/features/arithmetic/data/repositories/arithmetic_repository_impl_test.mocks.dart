@@ -3,13 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
+import 'dart:math' as _i2;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_local_data_source.dart'
-    as _i3;
+    as _i4;
 import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart'
-    as _i2;
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -26,9 +27,14 @@ import 'package:multiplication_trainer/features/arithmetic/data/models/multiplic
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeMultiplicationExerciseModel_0 extends _i1.SmartFake
-    implements _i2.MultiplicationExerciseModel {
-  _FakeMultiplicationExerciseModel_0(Object parent, Invocation parentInvocation)
+class _FakeRandom_0 extends _i1.SmartFake implements _i2.Random {
+  _FakeRandom_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeMultiplicationExerciseModel_1 extends _i1.SmartFake
+    implements _i3.MultiplicationExerciseModel {
+  _FakeMultiplicationExerciseModel_1(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -36,22 +42,30 @@ class _FakeMultiplicationExerciseModel_0 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockArithmeticLocalDataSource extends _i1.Mock
-    implements _i3.ArithmeticLocalDataSource {
+    implements _i4.ArithmeticLocalDataSource {
   MockArithmeticLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.MultiplicationExerciseModel>
+  _i2.Random get random =>
+      (super.noSuchMethod(
+            Invocation.getter(#random),
+            returnValue: _FakeRandom_0(this, Invocation.getter(#random)),
+          )
+          as _i2.Random);
+
+  @override
+  _i5.Future<_i3.MultiplicationExerciseModel>
   generateMultiplicationExercise() =>
       (super.noSuchMethod(
             Invocation.method(#generateMultiplicationExercise, []),
-            returnValue: _i4.Future<_i2.MultiplicationExerciseModel>.value(
-              _FakeMultiplicationExerciseModel_0(
+            returnValue: _i5.Future<_i3.MultiplicationExerciseModel>.value(
+              _FakeMultiplicationExerciseModel_1(
                 this,
                 Invocation.method(#generateMultiplicationExercise, []),
               ),
             ),
           )
-          as _i4.Future<_i2.MultiplicationExerciseModel>);
+          as _i5.Future<_i3.MultiplicationExerciseModel>);
 }
