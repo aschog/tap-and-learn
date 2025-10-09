@@ -11,12 +11,8 @@ class ArithmeticRepositoryImpl implements ArithmeticRepository {
   @override
   Future<Either<Failure, MultiplicationExercise>>
   generateMultiplicationExercise() async {
-    try {
-      final exerciseModel = await localDataSource
-          .generateMultiplicationExercise();
-      return Right(exerciseModel);
-    } catch (e) {
-      return Left(ServerFailure());
-    }
+    final exerciseModel = await localDataSource
+        .generateMultiplicationExercise();
+    return Right(exerciseModel);
   }
 }
