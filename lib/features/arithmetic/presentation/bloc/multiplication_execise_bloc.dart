@@ -73,7 +73,9 @@ class MultiplicationExerciseBloc
         } else {
           // Incorrect answer
           emit(state.copyWith(
-              displayOutput: product, status: AnswerStatus.incorrect));
+              displayOutput:
+                  '${exercise.multiplicand} × ${exercise.multiplier}',
+              status: AnswerStatus.incorrect));
           await Future.delayed(const Duration(seconds: 1)); // Wait for 1 second
           _userInput = '';
           final display = '${exercise.multiplicand} × ${exercise.multiplier}';
