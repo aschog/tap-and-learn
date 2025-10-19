@@ -47,10 +47,11 @@ class MockArithmeticRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.MultiplicationExercise>>
-      generateMultiplicationExercise() => (super.noSuchMethod(
+      generateMultiplicationExercise(List<int>? multiplicands) =>
+          (super.noSuchMethod(
             Invocation.method(
               #generateMultiplicationExercise,
-              [],
+              [multiplicands],
             ),
             returnValue: _i4.Future<
                     _i2.Either<_i5.Failure, _i6.MultiplicationExercise>>.value(
@@ -58,7 +59,7 @@ class MockArithmeticRepository extends _i1.Mock
               this,
               Invocation.method(
                 #generateMultiplicationExercise,
-                [],
+                [multiplicands],
               ),
             )),
           ) as _i4.Future<_i2.Either<_i5.Failure, _i6.MultiplicationExercise>>);

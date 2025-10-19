@@ -4,5 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class ArithmeticRepository {
   Future<Either<Failure, MultiplicationExercise>>
-  generateMultiplicationExercise();
+      generateMultiplicationExercise(List<int> multiplicands);
 }
