@@ -18,24 +18,24 @@ void main() {
     repository = ArithmeticRepositoryImpl(localDataSource: mockLocalDataSource);
   });
 
-  final tMultiplicationExerciseModel = MultiplicationExerciseModel(
-    multiplicand: 2,
-    multiplier: 3,
-  );
-  final MultiplicationExercise tMultiplicationExercise =
+  const tMultiplicationExerciseModel =
+      MultiplicationExerciseModel(multiplicand: 2, multiplier: 3, product: 6);
+  const MultiplicationExercise tMultiplicationExercise =
       tMultiplicationExerciseModel;
+  final multiplicands = [2];
   test(
-    'should return lacal data when the call to local data source is successful',
+    'should return local data when the call to local data source is successful',
     () async {
       // arrange
       when(
-        mockLocalDataSource.generateMultiplicationExercise(),
+        mockLocalDataSource.generateMultiplicationExercise(any),
       ).thenAnswer((_) async => tMultiplicationExerciseModel);
       // act
-      final result = await repository.generateMultiplicationExercise();
+      final result =
+          await repository.generateMultiplicationExercise(multiplicands);
       // assert
-      verify(mockLocalDataSource.generateMultiplicationExercise());
-      expect(result, equals(Right(tMultiplicationExercise)));
+      verify(mockLocalDataSource.generateMultiplicationExercise(multiplicands));
+      expect(result, equals(const Right(tMultiplicationExercise)));
     },
   );
 }

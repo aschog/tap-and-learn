@@ -11,24 +11,103 @@ import 'arithmetic_local_data_source_test.mocks.dart';
 @GenerateMocks([Random])
 void main() {
   late MockRandom mockRandom;
-  late ArithmeticLocalDataSource dataSource;
+  late ArithmeticLocalDataSourceImpl dataSource;
 
+  // Setup runs before each test
   setUp(() {
     mockRandom = MockRandom();
     dataSource = ArithmeticLocalDataSourceImpl(random: mockRandom);
   });
 
-  group('generetaMultiplicationExercise', () {
-    final tMultiplicationExerciseModel = MultiplicationExerciseModel(
-      multiplicand: 2,
-      multiplier: 3,
-    );
-    test('should return MultiplicationExercise', () async {
-      when(mockRandom.nextInt(any)).thenReturnInOrder([2, 3]);
-      final result = await dataSource.generateMultiplicationExercise();
-      expect(result, tMultiplicationExerciseModel);
-      verify(mockRandom.nextInt(any)).called(2);
-      verifyNoMoreInteractions(mockRandom);
-    });
+  const List<int> testMultiplicands = [2, 4, 6, 8, 10];
+
+  test('should generate exercise with correct calculation based on mock calls',
+      () async {
+    // ARRANGE
+    const int listLengthMinusOne = 4; // max for multiplicand index: 5 - 1
+    const int maxMultiplier = 10; // max for multiplier value: 10
+
+    const int selectedIndex = 3; // We force the index to be 3 (value 8)
+    const int expectedMultiplicand = 8;
+    const int expectedMultiplier = 7; // We force the multiplier to be 7
+    const int expectedProduct = 56;
+
+    // Stub 1st call: random.nextInt(4) -> 3 (to select 8)
+    when(mockRandom.nextInt(listLengthMinusOne)).thenReturn(selectedIndex);
+
+    // Stub 2nd call: random.nextInt(10) -> 7 (to select 7)
+    when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+
+    // ACT
+    final result =
+        await dataSource.generateMultiplicationExercise(testMultiplicands);
+
+    // ASSERT
+    expect(result.multiplicand, equals(expectedMultiplicand));
+    expect(result.multiplier, equals(expectedMultiplier));
+    expect(result.product, equals(expectedProduct));
+
+    // VERIFY: Check that the exact calls were made
+    verify(mockRandom.nextInt(listLengthMinusOne)).called(1);
+    verify(mockRandom.nextInt(maxMultiplier)).called(1);
+    verifyNoMoreInteractions(mockRandom);
+  });
+
+  test('should correctly handle edge case where multiplier is zero', () async {
+    // ARRANGE
+    const int listLengthMinusOne = 4;
+    const int maxMultiplier = 10;
+
+    const int selectedIndex = 0; // Selects 2
+    const int expectedMultiplicand = 2;
+    const int expectedMultiplier = 0; // Forced minimum value
+    const int expectedProduct = 0;
+
+    // Stub calls
+    when(mockRandom.nextInt(listLengthMinusOne)).thenReturn(selectedIndex);
+    when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+
+    // ACT
+    final result =
+        await dataSource.generateMultiplicationExercise(testMultiplicands);
+
+    // ASSERT
+    expect(result.product, equals(expectedProduct));
+    expect(result.multiplicand, equals(expectedMultiplicand));
+
+    // VERIFY
+    verify(mockRandom.nextInt(listLengthMinusOne)).called(1);
+    verify(mockRandom.nextInt(maxMultiplier)).called(1);
+    verifyNoMoreInteractions(mockRandom);
+  });
+
+  test('should correctly handle edge case of single multiplicand', () async {
+    // ARRANGE
+    const List<int> singleMultiplicand = [99]; // Length 1
+    const int listLengthMinusOne = 0; // 1 - 1 = 0. nextInt(0) must return 0.
+    const int maxMultiplier = 10;
+
+    const int expectedIndex = 0;
+    const int expectedMultiplicand = 99;
+    const int expectedMultiplier = 4;
+    const int expectedProduct = 396;
+
+    // Stub calls
+    when(mockRandom.nextInt(listLengthMinusOne)).thenReturn(expectedIndex);
+    when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+
+    // ACT
+    final result =
+        await dataSource.generateMultiplicationExercise(singleMultiplicand);
+
+    // ASSERT
+    expect(result.multiplicand, equals(expectedMultiplicand));
+    expect(result.multiplier, equals(expectedMultiplier));
+    expect(result.product, equals(expectedProduct));
+
+    // VERIFY
+    verify(mockRandom.nextInt(listLengthMinusOne)).called(1);
+    verify(mockRandom.nextInt(maxMultiplier)).called(1);
+    verifyNoMoreInteractions(mockRandom);
   });
 }

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:multiplication_trainer/core/usecases/usecase.dart';
 import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart';
 import 'package:multiplication_trainer/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
 
@@ -32,7 +31,8 @@ class MultiplicationExerciseBloc
   ) async {
     _userInput = '';
     _isShowingExercise = true;
-    final failureOrExercise = await generateMultiplicationExercise(NoParams());
+    final failureOrExercise = await generateMultiplicationExercise(
+        const Params(multiplicands: [5, 6, 7, 8, 9]));
     failureOrExercise.fold(
       (failure) => emit(
           state.copyWith(displayOutput: 'Error', status: AnswerStatus.error)),

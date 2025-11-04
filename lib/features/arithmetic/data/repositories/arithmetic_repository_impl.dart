@@ -10,9 +10,9 @@ class ArithmeticRepositoryImpl implements ArithmeticRepository {
   ArithmeticRepositoryImpl({required this.localDataSource});
   @override
   Future<Either<Failure, MultiplicationExercise>>
-  generateMultiplicationExercise() async {
-    final exerciseModel = await localDataSource
-        .generateMultiplicationExercise();
+      generateMultiplicationExercise(List<int> multiplicands) async {
+    final exerciseModel =
+        await localDataSource.generateMultiplicationExercise(multiplicands);
     return Right(exerciseModel);
   }
 }

@@ -6,7 +6,8 @@ abstract class ArithmeticLocalDataSource {
   final Random random;
 
   ArithmeticLocalDataSource({required this.random});
-  Future<MultiplicationExerciseModel> generateMultiplicationExercise();
+  Future<MultiplicationExerciseModel> generateMultiplicationExercise(
+      List<int> multiplicands);
 }
 
 class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
@@ -14,15 +15,16 @@ class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
   final Random random;
 
   ArithmeticLocalDataSourceImpl({required this.random});
-  final int _max = 10;
+  final int _maxMultiplier = 10;
   @override
-  Future<MultiplicationExerciseModel> generateMultiplicationExercise() async {
-    final multiplicand = random.nextInt(_max);
-    final multiplier = random.nextInt(_max);
+  Future<MultiplicationExerciseModel> generateMultiplicationExercise(
+      List<int> multiplicands) async {
+    final multiplicand =
+        multiplicands[random.nextInt(multiplicands.length - 1)];
+    final multiplier = random.nextInt(_maxMultiplier);
+    final product = multiplicand * multiplier;
 
     return MultiplicationExerciseModel(
-      multiplicand: multiplicand,
-      multiplier: multiplier,
-    );
+        multiplicand: multiplicand, multiplier: multiplier, product: product);
   }
 }

@@ -46,8 +46,7 @@ class _MultiplicationTrainerButtonState
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double buttonSize = (screenWidth - 5 * 12) / 4;
+    double screenWidth = MediaQuery.of(context).size.width; double buttonSize = (screenWidth - 5 * 12) / 4;
 
     return AnimatedScale(
       scale: _isPressed ? 0.9 : 1.0,

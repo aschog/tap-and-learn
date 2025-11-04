@@ -8,7 +8,6 @@ import 'dart:async' as _i5;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:multiplication_trainer/core/error/faiures.dart' as _i6;
-import 'package:multiplication_trainer/core/usecases/usecase.dart' as _i8;
 import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart'
     as _i7;
 import 'package:multiplication_trainer/features/arithmetic/domain/repositories/arithmetic_repository.dart'
@@ -70,7 +69,7 @@ class MockGenerateMultiplicationExercise extends _i1.Mock
 
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i7.MultiplicationExercise>> call(
-          _i8.NoParams? params) =>
+          _i4.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

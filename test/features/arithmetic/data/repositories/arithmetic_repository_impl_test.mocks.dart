@@ -65,19 +65,20 @@ class MockArithmeticLocalDataSource extends _i1.Mock
       ) as _i2.Random);
 
   @override
-  _i5.Future<_i3.MultiplicationExerciseModel>
-      generateMultiplicationExercise() => (super.noSuchMethod(
-            Invocation.method(
-              #generateMultiplicationExercise,
-              [],
-            ),
-            returnValue: _i5.Future<_i3.MultiplicationExerciseModel>.value(
-                _FakeMultiplicationExerciseModel_1(
-              this,
-              Invocation.method(
-                #generateMultiplicationExercise,
-                [],
-              ),
-            )),
-          ) as _i5.Future<_i3.MultiplicationExerciseModel>);
+  _i5.Future<_i3.MultiplicationExerciseModel> generateMultiplicationExercise(
+          List<int>? multiplicands) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #generateMultiplicationExercise,
+          [multiplicands],
+        ),
+        returnValue: _i5.Future<_i3.MultiplicationExerciseModel>.value(
+            _FakeMultiplicationExerciseModel_1(
+          this,
+          Invocation.method(
+            #generateMultiplicationExercise,
+            [multiplicands],
+          ),
+        )),
+      ) as _i5.Future<_i3.MultiplicationExerciseModel>);
 }
