@@ -1,0 +1,12 @@
+{
+    "appTitle": "Multiplication Trainer",
+    "selectMultiplicands": "Select Multiplicands",
+    "apply": "APPLY",
+    "refresh": "REFRESH",
+    "multiplicationInfo": "Multiplication Info",
+    "multiplicationDescription": "Multiplication is repeated addition.",
+    "multiplicand": "Multiplicand",
+    "multiplier": "Multiplier",
+    "product": "Product",
+    "ok": "OK"
+}

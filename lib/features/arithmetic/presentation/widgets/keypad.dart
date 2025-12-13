@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiplication_trainer/config/theme/app_colors.dart';
+import 'package:multiplication_trainer/l10n/app_localizations.dart';
 
 class Keypad extends StatelessWidget {
   final Function(String) onNumberTap;
@@ -53,7 +54,7 @@ class Keypad extends StatelessWidget {
         if (key == '*') {
           return _buildButton(
             context: context,
-            label: 'REFRESH',
+            label: AppLocalizations.of(context)!.refresh,
             color: gameColors.numberBtnColor1!,
             onTap: onRefreshTap,
             icon: Icons.refresh_rounded,

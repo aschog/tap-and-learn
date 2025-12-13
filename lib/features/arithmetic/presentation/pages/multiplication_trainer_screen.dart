@@ -7,6 +7,7 @@ import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/
 import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
 import 'package:multiplication_trainer/injection_container.dart';
 import 'package:flutter/foundation.dart';
+import 'package:multiplication_trainer/l10n/app_localizations.dart';
 
 class MultiplicationTrainerScreen extends StatelessWidget {
   const MultiplicationTrainerScreen({super.key});
@@ -91,7 +92,7 @@ class _MultiplicationTrainerViewState
                           .extension<GameThemeColors>()!
                           .textMainColor,
                     ),
-                    tooltip: 'Info',
+                    tooltip: AppLocalizations.of(context)!.multiplicationInfo,
                   ),
                   const MultiplicandSelector(),
                 ],
@@ -128,12 +129,13 @@ class _MultiplicationTrainerViewState
 
   void _showInfoDialog(BuildContext context) {
     final gameColors = Theme.of(context).extension<GameThemeColors>()!;
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
         title: Text(
-          'Multiplication Info',
+          l10n.multiplicationInfo,
           style: TextStyle(color: gameColors.textMainColor),
         ),
         content: Column(
@@ -141,7 +143,7 @@ class _MultiplicationTrainerViewState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Multiplication is repeated addition.',
+              l10n.multiplicationDescription,
               style: TextStyle(color: gameColors.textMainColor, fontSize: 16),
             ),
             const SizedBox(height: 24),
@@ -151,7 +153,7 @@ class _MultiplicationTrainerViewState
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: 'Multiplicand',
+                    text: l10n.multiplicand,
                     style: TextStyle(color: gameColors.numberBtnColor2),
                   ),
                   TextSpan(
@@ -159,7 +161,7 @@ class _MultiplicationTrainerViewState
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: 'Multiplier',
+                    text: l10n.multiplier,
                     style: TextStyle(color: gameColors.numberBtnColor1),
                   ),
                   TextSpan(
@@ -167,7 +169,7 @@ class _MultiplicationTrainerViewState
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: 'Product',
+                    text: l10n.product,
                     style: TextStyle(color: gameColors.numberBtnColor3),
                   ),
                 ],
@@ -208,7 +210,7 @@ class _MultiplicationTrainerViewState
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              'OK',
+              l10n.ok,
               style: TextStyle(
                   color: gameColors.textMainColor, fontWeight: FontWeight.bold),
             ),

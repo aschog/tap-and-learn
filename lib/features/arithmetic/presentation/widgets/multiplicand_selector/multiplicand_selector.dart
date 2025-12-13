@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multiplication_trainer/config/theme/app_colors.dart';
 import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:multiplication_trainer/l10n/app_localizations.dart';
 
 class MultiplicandSelector extends StatefulWidget {
   const MultiplicandSelector({super.key});
@@ -42,12 +43,9 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                   controller.open();
                 }
               },
-              icon: Icon(
-                Icons.settings,
-                size: 32,
-                color: gameColors.textMainColor,
-              ),
-              tooltip: 'Select Multiplicands',
+              icon: Icon(Icons.settings,
+                  size: 32, color: gameColors.textMainColor),
+              tooltip: AppLocalizations.of(context)!.selectMultiplicands,
             );
           },
           menuChildren: [
@@ -108,11 +106,10 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                 }
               },
               child: Center(
-                child: Text(
-                  'APPLY',
-                  style: menuTextStyle,
-                ),
-              ),
+                  child: Text(
+                AppLocalizations.of(context)!.apply,
+                style: menuTextStyle,
+              )),
             ),
           ],
         );

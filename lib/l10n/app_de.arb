@@ -1,0 +1,12 @@
+{
+    "appTitle": "Einmaleins Trainer",
+    "selectMultiplicands": "Zahlen auswählen",
+    "apply": "ANWENDEN",
+    "refresh": "NEU LADEN",
+    "multiplicationInfo": "Multiplikations Info",
+    "multiplicationDescription": "Multiplikation ist wiederholte Addition.",
+    "multiplicand": "Multiplikand",
+    "multiplier": "Multiplikator",
+    "product": "Produkt",
+    "ok": "OK"
+}
