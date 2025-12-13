@@ -7,11 +7,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   await di.init();
-  runApp(const CalculatorApp());
+  runApp(const TapAndLearnApp());
 }
 
-class CalculatorApp extends StatelessWidget {
-  const CalculatorApp({super.key});
+class TapAndLearnApp extends StatelessWidget {
+  const TapAndLearnApp({super.key});
 
   @override
   Widget build(BuildContext context) {
