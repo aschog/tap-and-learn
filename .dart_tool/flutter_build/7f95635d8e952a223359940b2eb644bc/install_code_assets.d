@@ -1,0 +1,1 @@
+ /Users/georg/Development/tap-and-learn/.dart_tool/flutter_build/7f95635d8e952a223359940b2eb644bc/native_assets.json: 

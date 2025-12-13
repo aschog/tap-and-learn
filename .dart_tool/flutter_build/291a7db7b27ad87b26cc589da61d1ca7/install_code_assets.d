@@ -1,0 +1,1 @@
+ /Users/georg/Development/multiplication_trainer/.dart_tool/flutter_build/291a7db7b27ad87b26cc589da61d1ca7/native_assets.json: 
