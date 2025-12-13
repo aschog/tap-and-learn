@@ -90,13 +90,13 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "multiply_fast" "\0"
-            VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "multiply_fast" "\0"
+            VALUE "FileDescription", "Tap and Learn" "\0"
+            VALUE "FileVersion", VERSION_AS_NUMBER "\0"
+            VALUE "InternalName", "tap_and_learn" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "multiply_fast.exe" "\0"
-            VALUE "ProductName", "multiply_fast" "\0"
-            VALUE "ProductVersion", VERSION_AS_STRING "\0"
+            VALUE "OriginalFilename", "tap_and_learn.exe" "\0"
+            VALUE "ProductName", "Tap and Learn" "\0"
+            VALUE "ProductVersion", VERSION_AS_NUMBER "\0"
         END
     END
     BLOCK "VarFileInfo"

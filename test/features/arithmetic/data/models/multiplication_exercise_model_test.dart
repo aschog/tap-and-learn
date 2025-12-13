@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
 
 void main() {
   const tMultiplicationExerciseModel =

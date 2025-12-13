@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
+import 'package:tap_and_learn/config/theme/app_colors.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
+import 'package:tap_and_learn/l10n/app_localizations.dart';
 
 class MockMultiplicandConfigCubit extends MockCubit<MultiplicandConfigState>
     implements MultiplicandConfigCubit {}
@@ -33,6 +35,19 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        theme: ThemeData(
+          extensions: const [
+            GameThemeColors(
+              numberBtnColor1: GamePalette.yellow,
+              numberBtnColor2: GamePalette.blue,
+              numberBtnColor3: GamePalette.orange,
+              deleteBtnColor: GamePalette.red,
+              textMainColor: GamePalette.textMain,
+            ),
+          ],
+        ),
         home: Scaffold(
           body: BlocProvider<MultiplicandConfigCubit>.value(
             value: mockCubit,
@@ -43,10 +58,10 @@ void main() {
     );
 
     // Verify initial state: Menu is closed
-    expect(find.byIcon(Icons.more_vert), findsOneWidget);
+    expect(find.byIcon(Icons.settings), findsOneWidget);
 
     // Open the menu
-    await tester.tap(find.byIcon(Icons.more_vert));
+    await tester.tap(find.byIcon(Icons.settings));
     await tester.pumpAndSettle();
 
     // Verify menu is open
@@ -61,10 +76,10 @@ void main() {
     verifyNever(() => mockCubit.updateMultiplicands(any()));
 
     // Verify visual update (checkmark should be gone)
-    expect(find.text('Apply'), findsOneWidget);
+    expect(find.text('APPLY'), findsOneWidget);
 
     // Tap Apply
-    await tester.tap(find.text('Apply'));
+    await tester.tap(find.text('APPLY'));
     await tester.pumpAndSettle();
 
     // Verify updateMultiplicands was called with expected list (1 removed from 0-9)
@@ -73,6 +88,6 @@ void main() {
     verify(() => mockCubit.updateMultiplicands(expected)).called(1);
 
     // Verify menu closed
-    expect(find.text('Apply'), findsNothing);
+    expect(find.text('APPLY'), findsNothing);
   });
 }

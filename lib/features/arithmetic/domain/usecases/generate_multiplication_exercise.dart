@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:multiplication_trainer/core/error/faiures.dart';
-import 'package:multiplication_trainer/core/usecases/usecase.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/repositories/arithmetic_repository.dart';
+import 'package:tap_and_learn/core/error/faiures.dart';
+import 'package:tap_and_learn/core/usecases/usecase.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
 
 class GenerateMultiplicationExercise
     extends UseCase<MultiplicationExercise, Params> {

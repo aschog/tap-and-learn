@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:get_it/get_it.dart';
-import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
-import 'package:multiplication_trainer/features/arithmetic/data/repositories/arithmetic_repository_impl.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/repositories/arithmetic_repository.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
+import 'package:tap_and_learn/features/arithmetic/data/repositories/arithmetic_repository_impl.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
 
 final sl = GetIt.instance;
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/pages/multiplication_trainer_screen.dart';
-import 'package:multiplication_trainer/l10n/app_localizations.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/pages/multiplication_trainer_screen.dart';
+import 'package:tap_and_learn/l10n/app_localizations.dart';
 import 'injection_container.dart' as di;
-import 'package:multiplication_trainer/config/theme/app_theme.dart';
+import 'package:tap_and_learn/config/theme/app_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {

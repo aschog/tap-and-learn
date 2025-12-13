@@ -8,14 +8,14 @@ import 'dart:async' as _i6;
 import 'package:bloc/bloc.dart' as _i9;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:multiplication_trainer/core/error/faiures.dart' as _i7;
-import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart'
+import 'package:tap_and_learn/core/error/faiures.dart' as _i7;
+import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart'
     as _i8;
-import 'package:multiplication_trainer/features/arithmetic/domain/repositories/arithmetic_repository.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart'
     as _i2;
-import 'package:multiplication_trainer/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart'
     as _i5;
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart'
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart'
     as _i4;
 
 // ignore_for_file: type=lint

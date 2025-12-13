@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multiplication_trainer/config/theme/app_colors.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/keypad.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
-import 'package:multiplication_trainer/injection_container.dart';
+import 'package:tap_and_learn/config/theme/app_colors.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/keypad.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
+import 'package:tap_and_learn/injection_container.dart';
 import 'package:flutter/foundation.dart';
-import 'package:multiplication_trainer/l10n/app_localizations.dart';
+import 'package:tap_and_learn/l10n/app_localizations.dart';
 
 class MultiplicationTrainerScreen extends StatelessWidget {
   const MultiplicationTrainerScreen({super.key});

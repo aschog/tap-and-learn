@@ -7,9 +7,9 @@ import 'dart:async' as _i5;
 import 'dart:math' as _i2;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_local_data_source.dart'
+import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart'
     as _i4;
-import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart'
+import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart'
     as _i3;
 
 // ignore_for_file: type=lint

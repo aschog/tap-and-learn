@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multiplication_trainer/config/theme/app_colors.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
-import 'package:multiplication_trainer/l10n/app_localizations.dart';
+import 'package:tap_and_learn/config/theme/app_colors.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/l10n/app_localizations.dart';
 
 class MultiplicandSelector extends StatefulWidget {
   const MultiplicandSelector({super.key});

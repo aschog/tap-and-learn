@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multiplication_trainer/config/theme/app_colors.dart';
-import 'package:multiplication_trainer/l10n/app_localizations.dart';
+import 'package:tap_and_learn/config/theme/app_colors.dart';
+import 'package:tap_and_learn/l10n/app_localizations.dart';
 
 class Keypad extends StatelessWidget {
   final Function(String) onNumberTap;

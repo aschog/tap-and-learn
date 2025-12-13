@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart';
+import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart';
 
 abstract class ArithmeticLocalDataSource {
   final Random random;

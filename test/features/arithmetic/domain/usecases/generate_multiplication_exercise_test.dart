@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/repositories/arithmetic_repository.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
 
 import 'generate_multiplication_exercise_test.mocks.dart';
 

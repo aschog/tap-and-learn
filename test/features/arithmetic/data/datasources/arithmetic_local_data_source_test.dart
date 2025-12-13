@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiplication_trainer/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
-import 'package:multiplication_trainer/features/arithmetic/data/models/multiplication_exercise_model.dart';
+import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
+import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart';
 
 import 'arithmetic_local_data_source_test.mocks.dart';
 

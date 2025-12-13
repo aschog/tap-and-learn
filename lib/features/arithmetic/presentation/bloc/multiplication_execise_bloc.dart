@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:multiplication_trainer/features/arithmetic/domain/entities/multiplication_exercise.dart';
-import 'package:multiplication_trainer/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
-import 'package:multiplication_trainer/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
 
 part 'multiplication_exercise_event.dart';
 part 'multiplication_exercise_state.dart';

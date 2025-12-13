@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:multiplication_trainer/config/theme/app_colors.dart';
+import 'package:tap_and_learn/config/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData get light {
