@@ -7,7 +7,10 @@ import 'dart:async' as _i4;
 import 'dart:math' as _i2;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i6;
 import 'package:shared_preferences/src/shared_preferences_legacy.dart' as _i3;
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart'
+    as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -237,4 +240,39 @@ class MockSharedPreferences extends _i1.Mock implements _i3.SharedPreferences {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+}
+
+/// A class which mocks [ArithmeticStrategy].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockArithmeticStrategy extends _i1.Mock
+    implements _i5.ArithmeticStrategy {
+  MockArithmeticStrategy() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get symbol => (super.noSuchMethod(
+        Invocation.getter(#symbol),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#symbol),
+        ),
+      ) as String);
+
+  @override
+  int calculate(
+    int? operand1,
+    int? operand2,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #calculate,
+          [
+            operand1,
+            operand2,
+          ],
+        ),
+        returnValue: 0,
+      ) as int);
 }

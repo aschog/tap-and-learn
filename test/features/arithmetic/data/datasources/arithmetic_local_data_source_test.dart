@@ -5,22 +5,26 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart';
 
 import 'arithmetic_local_data_source_test.mocks.dart';
 
-@GenerateMocks([Random, SharedPreferences])
+@GenerateMocks([Random, SharedPreferences, ArithmeticStrategy])
 void main() {
   late MockRandom mockRandom;
   late MockSharedPreferences mockSharedPreferences;
+  late MockArithmeticStrategy mockStrategy;
   late ArithmeticLocalDataSourceImpl dataSource;
 
   // Setup runs before each test
   setUp(() {
     mockRandom = MockRandom();
     mockSharedPreferences = MockSharedPreferences();
+    mockStrategy = MockArithmeticStrategy();
     dataSource = ArithmeticLocalDataSourceImpl(
       random: mockRandom,
       sharedPreferences: mockSharedPreferences,
+      strategy: mockStrategy,
     );
   });
 
@@ -44,6 +48,10 @@ void main() {
 
       // Stub 2nd call: random.nextInt(10) -> 7 (to select 7)
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+
+      // Stub strategy calculation
+      when(mockStrategy.calculate(expectedOperand, expectedMultiplier))
+          .thenReturn(expectedProduct);
 
       // ACT
       final result = await dataSource.generateExercise(testOperands);
@@ -73,6 +81,8 @@ void main() {
       // Stub calls
       when(mockRandom.nextInt(listLength)).thenReturn(selectedIndex);
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+      when(mockStrategy.calculate(expectedOperand, expectedMultiplier))
+          .thenReturn(expectedProduct);
 
       // ACT
       final result = await dataSource.generateExercise(testOperands);
@@ -99,6 +109,8 @@ void main() {
       // Stub calls
       // Note: nextInt for operand selection is skipped when length is 1
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
+      when(mockStrategy.calculate(expectedOperand, expectedMultiplier))
+          .thenReturn(expectedProduct);
 
       // ACT
       final result = await dataSource.generateExercise(singleOperand);

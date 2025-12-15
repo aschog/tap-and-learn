@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:tap_and_learn/features/arithmetic/domain/entities/exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
@@ -13,6 +14,7 @@ part 'exercise_state.dart';
 class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   final GenerateExercise generateExercise;
   final OperandConfigCubit operandConfigCubit;
+  final ArithmeticStrategy strategy;
   late StreamSubscription _operandSubscription;
   String _userInput = '';
   bool _isShowingExercise = true;
@@ -20,6 +22,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   ExerciseBloc({
     required this.generateExercise,
     required this.operandConfigCubit,
+    required this.strategy,
   }) : super(const ExerciseState(
             displayOutput: '0', status: AnswerStatus.initial)) {
     on<ExerciseRequested>(_onExerciseRequested);
@@ -51,7 +54,8 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       (failure) => emit(
           state.copyWith(displayOutput: 'Error', status: AnswerStatus.error)),
       (exercise) {
-        final display = '${exercise.operand1} × ${exercise.operand2}';
+        final display =
+            '${exercise.operand1} ${strategy.symbol} ${exercise.operand2}';
         emit(state.copyWith(
             exercise: exercise,
             displayOutput: display,
@@ -72,7 +76,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
     }
 
     if (int.tryParse(buttonText) != null) {
-      final product = (exercise!.operand1 * exercise.operand2).toString();
+      final product = exercise!.result.toString();
 
       // Prevent typing more digits than the product length
       if (_userInput.length >= product.length) {
@@ -97,11 +101,13 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
           }
         } else {
           emit(state.copyWith(
-              displayOutput: '${exercise.operand1} × ${exercise.operand2}',
+              displayOutput:
+                  '${exercise.operand1} ${strategy.symbol} ${exercise.operand2}',
               status: AnswerStatus.incorrect));
           await Future.delayed(const Duration(seconds: 1)); // Wait for 1 second
           _userInput = '';
-          final display = '${exercise.operand1} × ${exercise.operand2}';
+          final display =
+              '${exercise.operand1} ${strategy.symbol} ${exercise.operand2}';
           _isShowingExercise = true;
           if (!isClosed) {
             emit(state.copyWith(
@@ -126,7 +132,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       if (_userInput.isEmpty) {
         _isShowingExercise = true;
         final display =
-            '${state.exercise!.operand1} × ${state.exercise!.operand2}';
+            '${state.exercise!.operand1} ${strategy.symbol} ${state.exercise!.operand2}';
         emit(state.copyWith(
             displayOutput: display, status: AnswerStatus.initial));
       } else {

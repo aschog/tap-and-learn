@@ -63,9 +63,47 @@ lib/
 
 3.  **Run the app:**
 
+    The application supports two flavors: **Multiplication** and **Addition**.
+
+    ### Android
+    To run the app on an Android device or emulator with the specific flavor configuration (custom app name and ID):
+
+    **Multiplication Trainer:**
     ```bash
-    flutter run
+    flutter run --flavor multiplication -t lib/main_multiplication.dart
     ```
+
+    **Addition Trainer:**
+    ```bash
+    flutter run --flavor addition -t lib/main_addition.dart
+    ```
+
+    ### iOS
+    To run the app on the iOS Simulator or a physical device:
+
+    **Multiplication Trainer:**
+    ```bash
+    flutter run -t lib/main_multiplication.dart
+    ```
+
+    **Addition Trainer:**
+    ```bash
+    flutter run -t lib/main_addition.dart
+    ```
+
+    *Note: To use the `--flavor` flag on iOS (which enables separate app bundles), you must manually configure Xcode Schemes matching the flavor names (`multiplication`, `addition`).*
+
+## 📱 Flavors & Configuration
+
+This project is configured to build multiple app variants from the same codebase:
+
+- **Multiplication**: The default experience for practicing multiplication tables.
+- **Addition**: A variant for practicing addition sums.
+
+Each flavor has its own entry point (`lib/main_multiplication.dart`, `lib/main_addition.dart`) and configuration (`ArithmeticConfig`), allowing for dynamic customization of:
+- App Title and Icons
+- Arithmetic Strategy (Logic)
+- UI Labels and Examples
 
 ## 🧪 Testing
 
@@ -84,3 +122,14 @@ Contributions are welcome! Please follow these steps:
 3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
 4.  Push to the branch (`git push origin feature/AmazingFeature`).
 5.  Open a Pull Request.
+
+## 🚀 Deployment
+
+The project is configured to automatically deploy to GitHub Pages via GitHub Actions when pushing to the `main` branch.
+
+The deployment workflow:
+1.  Builds the **Multiplication** web app to `/multiplication/`.
+2.  Builds the **Addition** web app to `/addition/`.
+3.  Deploys a landing page at the root to navigate between them.
+
+**Note:** Ensure your repository name matches the `base-href` configured in `.github/workflows/deploy.yml` (currently set to `/tap-and-learn/`). If your repo name is different, update the workflow file.

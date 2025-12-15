@@ -8,5 +8,12 @@
     "operand": "Operand",
     "multiplier": "Multiplikator",
     "product": "Produkt",
-    "ok": "OK"
+    "ok": "OK",
+    "multiplicand": "Multiplikand",
+    "selectMultiplicands": "Multiplikanden auswählen",
+    "additionAppTitle": "Additions Trainer",
+    "additionInfo": "Additions Info",
+    "additionDescription": "Addition ist das Zusammenzählen von zwei oder mehr Zahlen.",
+    "summand": "Summand",
+    "sum": "Summe"
 }

@@ -157,6 +157,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @multiplicand.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiplicand'**
+  String get multiplicand;
+
+  /// No description provided for @selectMultiplicands.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Multiplicands'**
+  String get selectMultiplicands;
+
+  /// No description provided for @additionAppTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Addition Trainer'**
+  String get additionAppTitle;
+
+  /// No description provided for @additionInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Addition Info'**
+  String get additionInfo;
+
+  /// No description provided for @additionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Addition is finding the total or sum by combining two or more numbers.'**
+  String get additionDescription;
+
+  /// No description provided for @summand.
+  ///
+  /// In en, this message translates to:
+  /// **'Summand'**
+  String get summand;
+
+  /// No description provided for @sum.
+  ///
+  /// In en, this message translates to:
+  /// **'Sum'**
+  String get sum;
 }
 
 class _AppLocalizationsDelegate

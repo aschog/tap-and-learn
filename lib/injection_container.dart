@@ -2,18 +2,24 @@ import 'dart:math';
 
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tap_and_learn/config/arithmetic_config.dart';
 import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
 import 'package:tap_and_learn/features/arithmetic/data/repositories/arithmetic_repository_impl.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_operands1.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/usecases/save_selected_operands1.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/exercise_bloc.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
+Future<void> init(ArithmeticConfig config) async {
+  //! Config
+  sl.registerLazySingleton<ArithmeticConfig>(() => config);
+  sl.registerLazySingleton<ArithmeticStrategy>(() => config.strategy);
+
   //! Features - Arithmetic
   // Cubit
   sl.registerLazySingleton(() => OperandConfigCubit(
@@ -26,6 +32,7 @@ Future<void> init() async {
     () => ExerciseBloc(
       generateExercise: sl(),
       operandConfigCubit: sl(),
+      strategy: sl(),
     ),
   );
 
@@ -46,6 +53,7 @@ Future<void> init() async {
     () => ArithmeticLocalDataSourceImpl(
       random: sl(),
       sharedPreferences: sl(),
+      strategy: sl(),
     ),
   );
 

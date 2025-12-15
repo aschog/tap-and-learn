@@ -5,6 +5,6 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init(MultiplicationConfig());
+  await di.init(AdditionConfig());
   runApp(const TapAndLearnApp());
 }

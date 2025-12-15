@@ -5,27 +5,31 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/entities/exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/exercise_bloc.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
-import 'multiplication_exercise_bloc_test.mocks.dart';
+import 'exercise_bloc_test.mocks.dart';
 
-@GenerateMocks([GenerateExercise, OperandConfigCubit])
+@GenerateMocks([GenerateExercise, OperandConfigCubit, ArithmeticStrategy])
 void main() {
   late MockGenerateExercise mockGenerateMultiplicationExercise;
   late MockOperandConfigCubit mockOperandConfigCubit;
+  late MockArithmeticStrategy mockStrategy;
   late StreamController<OperandConfigState> operandConfigStreamController;
 
   setUp(() {
     mockGenerateMultiplicationExercise = MockGenerateExercise();
     mockOperandConfigCubit = MockOperandConfigCubit();
+    mockStrategy = MockArithmeticStrategy();
     operandConfigStreamController = StreamController<OperandConfigState>();
 
     when(mockOperandConfigCubit.state)
         .thenReturn(const OperandConfigState(selectedOperands1: [1, 2, 3]));
     when(mockOperandConfigCubit.stream)
         .thenAnswer((_) => operandConfigStreamController.stream);
+    when(mockStrategy.symbol).thenReturn('×');
   });
 
   tearDown(() {
@@ -51,6 +55,7 @@ void main() {
       return ExerciseBloc(
         generateExercise: mockGenerateMultiplicationExercise,
         operandConfigCubit: mockOperandConfigCubit,
+        strategy: mockStrategy,
       );
     },
     expect: () => [tExerciseLoadedState],
@@ -65,6 +70,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       seed: () => tExerciseLoadedState,
@@ -100,6 +106,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       seed: () => tExerciseLoadedState,
@@ -131,6 +138,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       seed: () => tExerciseLoadedState.copyWith(displayOutput: '999'),
@@ -151,6 +159,7 @@ void main() {
           return ExerciseBloc(
             generateExercise: mockGenerateMultiplicationExercise,
             operandConfigCubit: mockOperandConfigCubit,
+            strategy: mockStrategy,
           );
         },
         act: (bloc) async {
@@ -189,6 +198,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       act: (bloc) async {
@@ -215,6 +225,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       act: (bloc) async {
@@ -246,6 +257,7 @@ void main() {
         return ExerciseBloc(
           generateExercise: mockGenerateMultiplicationExercise,
           operandConfigCubit: mockOperandConfigCubit,
+          strategy: mockStrategy,
         );
       },
       act: (bloc) {

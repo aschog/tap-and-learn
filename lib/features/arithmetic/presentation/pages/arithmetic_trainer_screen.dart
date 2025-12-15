@@ -1,16 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tap_and_learn/config/arithmetic_config.dart';
 import 'package:tap_and_learn/config/theme/app_colors.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/exercise_bloc.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/keypad.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/operand_selector.dart';
 import 'package:tap_and_learn/injection_container.dart';
-import 'package:flutter/foundation.dart';
 import 'package:tap_and_learn/l10n/app_localizations.dart';
 
-class MultiplicationTrainerScreen extends StatelessWidget {
-  const MultiplicationTrainerScreen({super.key});
+class ArithmeticTrainerScreen extends StatelessWidget {
+  const ArithmeticTrainerScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -22,21 +23,20 @@ class MultiplicationTrainerScreen extends StatelessWidget {
           create: (context) => sl<ExerciseBloc>(),
         ),
       ],
-      child: const _MultiplicationTrainerView(),
+      child: const _ArithmeticTrainerView(),
     );
   }
 }
 
-class _MultiplicationTrainerView extends StatefulWidget {
-  const _MultiplicationTrainerView();
+class _ArithmeticTrainerView extends StatefulWidget {
+  const _ArithmeticTrainerView();
 
   @override
-  State<_MultiplicationTrainerView> createState() =>
-      _MultiplicationTrainerViewState();
+  State<_ArithmeticTrainerView> createState() =>
+      _ArithmeticTrainerViewState();
 }
 
-class _MultiplicationTrainerViewState
-    extends State<_MultiplicationTrainerView> {
+class _ArithmeticTrainerViewState extends State<_ArithmeticTrainerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +54,9 @@ class _MultiplicationTrainerViewState
 
   Widget _buildScreen(BuildContext context, ExerciseState state) {
     final gameColors = Theme.of(context).extension<GameThemeColors>()!;
+    final config = sl<ArithmeticConfig>();
+    final l10n = AppLocalizations.of(context)!;
+
     Color displayColor = gameColors.textMainColor!;
     if (state.status == AnswerStatus.incorrect) {
       displayColor = Colors.red;
@@ -90,7 +93,7 @@ class _MultiplicationTrainerViewState
                           .extension<GameThemeColors>()!
                           .textMainColor,
                     ),
-                    tooltip: AppLocalizations.of(context)!.multiplicationInfo,
+                    tooltip: config.getInfoTitle(l10n),
                   ),
                   const OperandSelector(),
                 ],
@@ -126,12 +129,15 @@ class _MultiplicationTrainerViewState
   void _showInfoDialog(BuildContext context) {
     final gameColors = Theme.of(context).extension<GameThemeColors>()!;
     final l10n = AppLocalizations.of(context)!;
+    final config = sl<ArithmeticConfig>();
+    final symbol = config.strategy.symbol;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
         title: Text(
-          l10n.multiplicationInfo,
+          config.getInfoTitle(l10n),
           style: TextStyle(color: gameColors.textMainColor),
         ),
         content: Column(
@@ -139,7 +145,7 @@ class _MultiplicationTrainerViewState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.multiplicationDescription,
+              config.getInfoDescription(l10n),
               style: TextStyle(color: gameColors.textMainColor, fontSize: 16),
             ),
             const SizedBox(height: 24),
@@ -149,15 +155,15 @@ class _MultiplicationTrainerViewState
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: l10n.operand,
+                    text: config.getOperand1Label(l10n),
                     style: TextStyle(color: gameColors.numberBtnColor2),
                   ),
                   TextSpan(
-                    text: ' × ',
+                    text: ' $symbol ',
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: l10n.multiplier,
+                    text: config.getOperand2Label(l10n),
                     style: TextStyle(color: gameColors.numberBtnColor1),
                   ),
                   TextSpan(
@@ -165,7 +171,7 @@ class _MultiplicationTrainerViewState
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: l10n.product,
+                    text: config.getResultLabel(l10n),
                     style: TextStyle(color: gameColors.numberBtnColor3),
                   ),
                 ],
@@ -178,15 +184,15 @@ class _MultiplicationTrainerViewState
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: '7',
+                    text: config.exampleOperand1,
                     style: TextStyle(color: gameColors.numberBtnColor2),
                   ),
                   TextSpan(
-                    text: ' × ',
+                    text: ' $symbol ',
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: '8',
+                    text: config.exampleOperand2,
                     style: TextStyle(color: gameColors.numberBtnColor1),
                   ),
                   TextSpan(
@@ -194,7 +200,7 @@ class _MultiplicationTrainerViewState
                     style: TextStyle(color: gameColors.textMainColor),
                   ),
                   TextSpan(
-                    text: '56',
+                    text: config.exampleResult,
                     style: TextStyle(color: gameColors.numberBtnColor3),
                   ),
                 ],

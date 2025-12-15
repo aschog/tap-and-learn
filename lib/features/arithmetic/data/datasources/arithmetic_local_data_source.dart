@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tap_and_learn/features/arithmetic/data/models/exercise_model.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/logic/arithmetic_strategy.dart';
 
 abstract class ArithmeticLocalDataSource {
   final Random random;
@@ -18,10 +19,12 @@ class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
   @override
   final Random random;
   final SharedPreferences sharedPreferences;
+  final ArithmeticStrategy strategy;
 
   ArithmeticLocalDataSourceImpl({
     required this.random,
     required this.sharedPreferences,
+    required this.strategy,
   });
   final int _maxOperand2 = 10;
   @override
@@ -29,11 +32,11 @@ class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
     final operand1 = operands1.length == 1
         ? operands1[0]
         : operands1[random.nextInt(operands1.length)];
-    final operands2 = random.nextInt(_maxOperand2);
-    final result = operand1 * operands2;
+    final operand2 = random.nextInt(_maxOperand2);
+    final result = strategy.calculate(operand1, operand2);
 
     return ExerciseModel(
-        operand1: operand1, operand2: operands2, result: result);
+        operand1: operand1, operand2: operand2, result: result);
   }
 
   @override

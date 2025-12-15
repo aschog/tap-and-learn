@@ -38,4 +38,26 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get multiplicand => 'Multiplikand';
+
+  @override
+  String get selectMultiplicands => 'Multiplikanden auswählen';
+
+  @override
+  String get additionAppTitle => 'Additions Trainer';
+
+  @override
+  String get additionInfo => 'Additions Info';
+
+  @override
+  String get additionDescription =>
+      'Addition ist das Zusammenzählen von zwei oder mehr Zahlen.';
+
+  @override
+  String get summand => 'Summand';
+
+  @override
+  String get sum => 'Summe';
 }
