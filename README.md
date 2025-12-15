@@ -5,9 +5,9 @@
 ## 🚀 Features
 
 - **Multiplication Training**: Practice multiplication tables with randomly generated questions.
-- **Customizable Practice**: Select specific multiplicands (e.g., practice only the 7x and 8x tables) to focus on weak areas.
+- **Customizable Practice**: Select specific operands (e.g., practice only the 7x and 8x tables) to focus on weak areas.
 - **Interactive Feedback**: Get immediate visual feedback on answers.
-- **Persistent Settings**: Your preferred multiplicands are saved automatically.
+- **Persistent Settings**: Your preferred operands are saved automatically.
 - **Localization**: Supports multiple languages (currently English and German).
 - **Clean Architecture**: Built with scalability and maintainability in mind using the Clean Architecture principles.
 

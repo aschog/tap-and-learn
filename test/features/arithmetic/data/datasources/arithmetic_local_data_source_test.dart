@@ -24,17 +24,18 @@ void main() {
     );
   });
 
-  const List<int> testMultiplicands = [2, 4, 6, 8, 10];
+  const List<int> testOperands = [2, 4, 6, 8, 10];
 
-  group('generateMultiplicationExercise', () {
-    test('should generate exercise with correct calculation based on mock calls',
+  group('generateExercise', () {
+    test(
+        'should generate exercise with correct calculation based on mock calls',
         () async {
       // ARRANGE
-      const int listLength = 5; // max for multiplicand index: 5
+      const int listLength = 5; // max for operand index: 5
       const int maxMultiplier = 10; // max for multiplier value: 10
 
       const int selectedIndex = 3; // We force the index to be 3 (value 8)
-      const int expectedMultiplicand = 8;
+      const int expectedOperand = 8;
       const int expectedMultiplier = 7; // We force the multiplier to be 7
       const int expectedProduct = 56;
 
@@ -45,13 +46,12 @@ void main() {
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
 
       // ACT
-      final result =
-          await dataSource.generateMultiplicationExercise(testMultiplicands);
+      final result = await dataSource.generateExercise(testOperands);
 
       // ASSERT
-      expect(result.multiplicand, equals(expectedMultiplicand));
-      expect(result.multiplier, equals(expectedMultiplier));
-      expect(result.product, equals(expectedProduct));
+      expect(result.operand1, equals(expectedOperand));
+      expect(result.operand2, equals(expectedMultiplier));
+      expect(result.result, equals(expectedProduct));
 
       // VERIFY: Check that the exact calls were made
       verify(mockRandom.nextInt(listLength)).called(1);
@@ -59,13 +59,14 @@ void main() {
       verifyNoMoreInteractions(mockRandom);
     });
 
-    test('should correctly handle edge case where multiplier is zero', () async {
+    test('should correctly handle edge case where multiplier is zero',
+        () async {
       // ARRANGE
       const int listLength = 5;
       const int maxMultiplier = 10;
 
       const int selectedIndex = 0; // Selects 2
-      const int expectedMultiplicand = 2;
+      const int expectedOperand = 2;
       const int expectedMultiplier = 0; // Forced minimum value
       const int expectedProduct = 0;
 
@@ -74,12 +75,11 @@ void main() {
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
 
       // ACT
-      final result =
-          await dataSource.generateMultiplicationExercise(testMultiplicands);
+      final result = await dataSource.generateExercise(testOperands);
 
       // ASSERT
-      expect(result.product, equals(expectedProduct));
-      expect(result.multiplicand, equals(expectedMultiplicand));
+      expect(result.result, equals(expectedProduct));
+      expect(result.operand1, equals(expectedOperand));
 
       // VERIFY
       verify(mockRandom.nextInt(listLength)).called(1);
@@ -87,27 +87,26 @@ void main() {
       verifyNoMoreInteractions(mockRandom);
     });
 
-    test('should correctly handle edge case of single multiplicand', () async {
+    test('should correctly handle edge case of single operand', () async {
       // ARRANGE
-      const List<int> singleMultiplicand = [99]; // Length 1
+      const List<int> singleOperand = [99]; // Length 1
       const int maxMultiplier = 10;
 
-      const int expectedMultiplicand = 99;
+      const int expectedOperand = 99;
       const int expectedMultiplier = 4;
       const int expectedProduct = 396;
 
       // Stub calls
-      // Note: nextInt for multiplicand selection is skipped when length is 1
+      // Note: nextInt for operand selection is skipped when length is 1
       when(mockRandom.nextInt(maxMultiplier)).thenReturn(expectedMultiplier);
 
       // ACT
-      final result =
-          await dataSource.generateMultiplicationExercise(singleMultiplicand);
+      final result = await dataSource.generateExercise(singleOperand);
 
       // ASSERT
-      expect(result.multiplicand, equals(expectedMultiplicand));
-      expect(result.multiplier, equals(expectedMultiplier));
-      expect(result.product, equals(expectedProduct));
+      expect(result.operand1, equals(expectedOperand));
+      expect(result.operand2, equals(expectedMultiplier));
+      expect(result.result, equals(expectedProduct));
 
       // VERIFY
       verify(mockRandom.nextInt(maxMultiplier)).called(1);
@@ -115,53 +114,51 @@ void main() {
     });
   });
 
-  group('getSelectedMultiplicands', () {
-    test('should return cached multiplicands when available', () async {
+  group('getSelectedOperands1', () {
+    test('should return cached operands when available', () async {
       // ARRANGE
       final List<String> cachedList = ['1', '2', '3'];
       final List<int> expectedList = [1, 2, 3];
-      when(mockSharedPreferences.getStringList(cachedMultiplicandsKey))
+      when(mockSharedPreferences.getStringList(cachedOperandsKey))
           .thenReturn(cachedList);
 
       // ACT
-      final result = await dataSource.getSelectedMultiplicands();
+      final result = await dataSource.getSelectedOperands1();
 
       // ASSERT
       expect(result, equals(expectedList));
-      verify(mockSharedPreferences.getStringList(cachedMultiplicandsKey))
-          .called(1);
+      verify(mockSharedPreferences.getStringList(cachedOperandsKey)).called(1);
     });
 
-    test('should return default multiplicands when not available', () async {
+    test('should return default operands when not available', () async {
       // ARRANGE
-      when(mockSharedPreferences.getStringList(cachedMultiplicandsKey))
+      when(mockSharedPreferences.getStringList(cachedOperandsKey))
           .thenReturn(null);
       final List<int> expectedList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
       // ACT
-      final result = await dataSource.getSelectedMultiplicands();
+      final result = await dataSource.getSelectedOperands1();
 
       // ASSERT
       expect(result, equals(expectedList));
-      verify(mockSharedPreferences.getStringList(cachedMultiplicandsKey))
-          .called(1);
+      verify(mockSharedPreferences.getStringList(cachedOperandsKey)).called(1);
     });
   });
 
-  group('saveSelectedMultiplicands', () {
+  group('saveSelectedOperands1', () {
     test('should call setStringList with correct values', () async {
       // ARRANGE
-      final List<int> multiplicands = [1, 2, 3];
+      final List<int> operands = [1, 2, 3];
       final List<String> expectedStringList = ['1', '2', '3'];
       when(mockSharedPreferences.setStringList(any, any))
           .thenAnswer((_) async => true);
 
       // ACT
-      await dataSource.saveSelectedMultiplicands(multiplicands);
+      await dataSource.saveSelectedOperands1(operands);
 
       // ASSERT
       verify(mockSharedPreferences.setStringList(
-              cachedMultiplicandsKey, expectedStringList))
+              cachedOperandsKey, expectedStringList))
           .called(1);
     });
   });

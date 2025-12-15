@@ -9,7 +9,7 @@ import 'dart:math' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart'
     as _i4;
-import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart'
+import 'package:tap_and_learn/features/arithmetic/data/models/exercise_model.dart'
     as _i3;
 
 // ignore_for_file: type=lint
@@ -35,9 +35,8 @@ class _FakeRandom_0 extends _i1.SmartFake implements _i2.Random {
         );
 }
 
-class _FakeMultiplicationExerciseModel_1 extends _i1.SmartFake
-    implements _i3.MultiplicationExerciseModel {
-  _FakeMultiplicationExerciseModel_1(
+class _FakeExerciseModel_1 extends _i1.SmartFake implements _i3.ExerciseModel {
+  _FakeExerciseModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -65,38 +64,36 @@ class MockArithmeticLocalDataSource extends _i1.Mock
       ) as _i2.Random);
 
   @override
-  _i5.Future<_i3.MultiplicationExerciseModel> generateMultiplicationExercise(
-          List<int>? multiplicands) =>
+  _i5.Future<_i3.ExerciseModel> generateExercise(List<int>? operands1) =>
       (super.noSuchMethod(
         Invocation.method(
-          #generateMultiplicationExercise,
-          [multiplicands],
+          #generateExercise,
+          [operands1],
         ),
-        returnValue: _i5.Future<_i3.MultiplicationExerciseModel>.value(
-            _FakeMultiplicationExerciseModel_1(
+        returnValue: _i5.Future<_i3.ExerciseModel>.value(_FakeExerciseModel_1(
           this,
           Invocation.method(
-            #generateMultiplicationExercise,
-            [multiplicands],
+            #generateExercise,
+            [operands1],
           ),
         )),
-      ) as _i5.Future<_i3.MultiplicationExerciseModel>);
+      ) as _i5.Future<_i3.ExerciseModel>);
 
   @override
-  _i5.Future<List<int>> getSelectedMultiplicands() => (super.noSuchMethod(
+  _i5.Future<List<int>> getSelectedOperands1() => (super.noSuchMethod(
         Invocation.method(
-          #getSelectedMultiplicands,
+          #getSelectedOperands1,
           [],
         ),
         returnValue: _i5.Future<List<int>>.value(<int>[]),
       ) as _i5.Future<List<int>>);
 
   @override
-  _i5.Future<void> saveSelectedMultiplicands(List<int>? multiplicands) =>
+  _i5.Future<void> saveSelectedOperands1(List<int>? operands1) =>
       (super.noSuchMethod(
         Invocation.method(
-          #saveSelectedMultiplicands,
-          [multiplicands],
+          #saveSelectedOperands1,
+          [operands1],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

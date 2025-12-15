@@ -5,34 +5,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tap_and_learn/features/arithmetic/data/datasources/arithmetic_local_data_source.dart';
 import 'package:tap_and_learn/features/arithmetic/data/repositories/arithmetic_repository_impl.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_multiplicands.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/save_selected_multiplicands.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_operands1.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/save_selected_operands1.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   //! Features - Arithmetic
   // Cubit
-  sl.registerLazySingleton(() => MultiplicandConfigCubit(
-        getSelectedMultiplicands: sl(),
-        saveSelectedMultiplicands: sl(),
+  sl.registerLazySingleton(() => OperandConfigCubit(
+        getSelectedOperands1: sl(),
+        saveSelectedOperands1: sl(),
       ));
 
   // Bloc
   sl.registerFactory(
-    () => MultiplicationExerciseBloc(
-      generateMultiplicationExercise: sl(),
-      multiplicandConfigCubit: sl(),
+    () => ExerciseBloc(
+      generateExercise: sl(),
+      operandConfigCubit: sl(),
     ),
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GenerateMultiplicationExercise(sl()));
-  sl.registerLazySingleton(() => GetSelectedMultiplicands(sl()));
-  sl.registerLazySingleton(() => SaveSelectedMultiplicands(sl()));
+  sl.registerLazySingleton(() => GenerateExercise(sl()));
+  sl.registerLazySingleton(() => GetSelectedOperands1(sl()));
+  sl.registerLazySingleton(() => SaveSelectedOperands1(sl()));
 
   // Repository
   sl.registerLazySingleton<ArithmeticRepository>(

@@ -1,19 +1,18 @@
 import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tap_and_learn/features/arithmetic/data/models/multiplication_exercise_model.dart';
+import 'package:tap_and_learn/features/arithmetic/data/models/exercise_model.dart';
 
 abstract class ArithmeticLocalDataSource {
   final Random random;
 
   ArithmeticLocalDataSource({required this.random});
-  Future<MultiplicationExerciseModel> generateMultiplicationExercise(
-      List<int> multiplicands);
-  Future<List<int>> getSelectedMultiplicands();
-  Future<void> saveSelectedMultiplicands(List<int> multiplicands);
+  Future<ExerciseModel> generateExercise(List<int> operands1);
+  Future<List<int>> getSelectedOperands1();
+  Future<void> saveSelectedOperands1(List<int> operands1);
 }
 
-const cachedMultiplicandsKey = 'CACHED_MULTIPLICANDS';
+const cachedOperandsKey = 'CACHED_OPERANDS';
 
 class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
   @override
@@ -24,23 +23,22 @@ class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
     required this.random,
     required this.sharedPreferences,
   });
-  final int _maxMultiplier = 10;
+  final int _maxOperand2 = 10;
   @override
-  Future<MultiplicationExerciseModel> generateMultiplicationExercise(
-      List<int> multiplicands) async {
-    final multiplicand = multiplicands.length == 1
-        ? multiplicands[0]
-        : multiplicands[random.nextInt(multiplicands.length)];
-    final multiplier = random.nextInt(_maxMultiplier);
-    final product = multiplicand * multiplier;
+  Future<ExerciseModel> generateExercise(List<int> operands1) async {
+    final operand1 = operands1.length == 1
+        ? operands1[0]
+        : operands1[random.nextInt(operands1.length)];
+    final operands2 = random.nextInt(_maxOperand2);
+    final result = operand1 * operands2;
 
-    return MultiplicationExerciseModel(
-        multiplicand: multiplicand, multiplier: multiplier, product: product);
+    return ExerciseModel(
+        operand1: operand1, operand2: operands2, result: result);
   }
 
   @override
-  Future<List<int>> getSelectedMultiplicands() {
-    final jsonString = sharedPreferences.getStringList(cachedMultiplicandsKey);
+  Future<List<int>> getSelectedOperands1() {
+    final jsonString = sharedPreferences.getStringList(cachedOperandsKey);
     if (jsonString != null) {
       return Future.value(jsonString.map((e) => int.parse(e)).toList());
     } else {
@@ -49,9 +47,8 @@ class ArithmeticLocalDataSourceImpl implements ArithmeticLocalDataSource {
   }
 
   @override
-  Future<void> saveSelectedMultiplicands(List<int> multiplicands) {
-    final List<String> stringList =
-        multiplicands.map((e) => e.toString()).toList();
-    return sharedPreferences.setStringList(cachedMultiplicandsKey, stringList);
+  Future<void> saveSelectedOperands1(List<int> operands1) {
+    final List<String> stringList = operands1.map((e) => e.toString()).toList();
+    return sharedPreferences.setStringList(cachedOperandsKey, stringList);
   }
 }

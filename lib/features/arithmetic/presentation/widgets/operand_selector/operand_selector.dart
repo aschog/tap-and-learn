@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tap_and_learn/config/theme/app_colors.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 import 'package:tap_and_learn/l10n/app_localizations.dart';
 
-class MultiplicandSelector extends StatefulWidget {
-  const MultiplicandSelector({super.key});
+class OperandSelector extends StatefulWidget {
+  const OperandSelector({super.key});
 
   @override
-  State<MultiplicandSelector> createState() => _MultiplicandSelectorState();
+  State<OperandSelector> createState() => _OperandSelectorState();
 }
 
-class _MultiplicandSelectorState extends State<MultiplicandSelector> {
-  List<int> _tempSelectedMultiplicands = [];
+class _OperandSelectorState extends State<OperandSelector> {
+  List<int> _tempSelectedOperands = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
       fontSize: 18,
     );
 
-    return BlocBuilder<MultiplicandConfigCubit, MultiplicandConfigState>(
+    return BlocBuilder<OperandConfigCubit, OperandConfigState>(
       builder: (context, state) {
         return MenuAnchor(
           style: const MenuStyle(
@@ -37,22 +37,21 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                   controller.close();
                 } else {
                   setState(() {
-                    _tempSelectedMultiplicands =
-                        List.from(state.selectedMultiplicands);
+                    _tempSelectedOperands = List.from(state.selectedOperands1);
                   });
                   controller.open();
                 }
               },
               icon: Icon(Icons.settings,
                   size: 32, color: gameColors.textMainColor),
-              tooltip: AppLocalizations.of(context)!.selectMultiplicands,
+              tooltip: AppLocalizations.of(context)!.selectOperands,
             );
           },
           menuChildren: [
             ...List.generate(
               10,
-              (int multiplicand) => MenuItemButton(
-                key: ValueKey('multiplicand_$multiplicand'),
+              (int operand) => MenuItemButton(
+                key: ValueKey('operand1_$operand'),
                 closeOnActivate: false,
                 style: ButtonStyle(
                   backgroundColor:
@@ -62,14 +61,14 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                 ),
                 onPressed: () {
                   setState(() {
-                    if (_tempSelectedMultiplicands.contains(multiplicand)) {
-                      _tempSelectedMultiplicands.remove(multiplicand);
+                    if (_tempSelectedOperands.contains(operand)) {
+                      _tempSelectedOperands.remove(operand);
                     } else {
-                      _tempSelectedMultiplicands.add(multiplicand);
+                      _tempSelectedOperands.add(operand);
                     }
                   });
                 },
-                leadingIcon: _tempSelectedMultiplicands.contains(multiplicand)
+                leadingIcon: _tempSelectedOperands.contains(operand)
                     ? Icon(
                         Icons.check_rounded,
                         color: gameColors.textMainColor,
@@ -79,7 +78,7 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                         width: 24,
                         height: 24,
                       ),
-                child: Text(multiplicand.toString(), style: menuTextStyle),
+                child: Text(operand.toString(), style: menuTextStyle),
               ),
             ),
             Divider(
@@ -99,10 +98,10 @@ class _MultiplicandSelectorState extends State<MultiplicandSelector> {
                 ),
               ),
               onPressed: () {
-                if (_tempSelectedMultiplicands.isNotEmpty) {
+                if (_tempSelectedOperands.isNotEmpty) {
                   context
-                      .read<MultiplicandConfigCubit>()
-                      .updateMultiplicands(_tempSelectedMultiplicands);
+                      .read<OperandConfigCubit>()
+                      .updateOperands1(_tempSelectedOperands);
                 }
               },
               child: Center(

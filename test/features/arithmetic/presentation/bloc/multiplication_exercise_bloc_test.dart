@@ -4,68 +4,67 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
 import 'multiplication_exercise_bloc_test.mocks.dart';
 
-@GenerateMocks([GenerateMultiplicationExercise, MultiplicandConfigCubit])
+@GenerateMocks([GenerateExercise, OperandConfigCubit])
 void main() {
-  late MockGenerateMultiplicationExercise mockGenerateMultiplicationExercise;
-  late MockMultiplicandConfigCubit mockMultiplicandConfigCubit;
-  late StreamController<MultiplicandConfigState> multiplicandConfigStreamController;
+  late MockGenerateExercise mockGenerateMultiplicationExercise;
+  late MockOperandConfigCubit mockOperandConfigCubit;
+  late StreamController<OperandConfigState> operandConfigStreamController;
 
   setUp(() {
-    mockGenerateMultiplicationExercise = MockGenerateMultiplicationExercise();
-    mockMultiplicandConfigCubit = MockMultiplicandConfigCubit();
-    multiplicandConfigStreamController = StreamController<MultiplicandConfigState>();
+    mockGenerateMultiplicationExercise = MockGenerateExercise();
+    mockOperandConfigCubit = MockOperandConfigCubit();
+    operandConfigStreamController = StreamController<OperandConfigState>();
 
-    when(mockMultiplicandConfigCubit.state).thenReturn(
-        const MultiplicandConfigState(selectedMultiplicands: [1, 2, 3]));
-    when(mockMultiplicandConfigCubit.stream)
-        .thenAnswer((_) => multiplicandConfigStreamController.stream);
+    when(mockOperandConfigCubit.state)
+        .thenReturn(const OperandConfigState(selectedOperands1: [1, 2, 3]));
+    when(mockOperandConfigCubit.stream)
+        .thenAnswer((_) => operandConfigStreamController.stream);
   });
 
   tearDown(() {
-    multiplicandConfigStreamController.close();
+    operandConfigStreamController.close();
   });
 
   // product is technically not in the constructor of MultiplicationExercise in some versions,
   // but let's check the code if I can.
   // The error said "Required named parameter 'product' must be provided." so I added it.
-  const tExercise =
-      MultiplicationExercise(multiplicand: 7, multiplier: 8, product: 56);
+  const tExercise = Exercise(operand1: 7, operand2: 8, result: 56);
 
   // Note: tInitialState is not really used in seed unless we explicitly start with it.
-  const tExerciseLoadedState = MultiplicationExerciseState(
+  const tExerciseLoadedState = ExerciseState(
       exercise: tExercise,
       displayOutput: '7 × 8',
       status: AnswerStatus.initial);
 
-  blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+  blocTest<ExerciseBloc, ExerciseState>(
     'emits [exercise, initial] when created',
     build: () {
       when(mockGenerateMultiplicationExercise(any))
           .thenAnswer((_) async => const Right(tExercise));
-      return MultiplicationExerciseBloc(
-        generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-        multiplicandConfigCubit: mockMultiplicandConfigCubit,
+      return ExerciseBloc(
+        generateExercise: mockGenerateMultiplicationExercise,
+        operandConfigCubit: mockOperandConfigCubit,
       );
     },
     expect: () => [tExerciseLoadedState],
   );
 
   group('ButtonPressed', () {
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+    blocTest<ExerciseBloc, ExerciseState>(
       'emits [entering, correct] and requests new exercise for correct answer',
       build: () {
         when(mockGenerateMultiplicationExercise(any))
             .thenAnswer((_) async => const Right(tExercise));
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       seed: () => tExerciseLoadedState,
@@ -75,7 +74,7 @@ void main() {
         // Wait for the delay inside the bloc to complete
         await Future.delayed(const Duration(milliseconds: 1100));
       },
-      expect: () => <MultiplicationExerciseState>[
+      expect: () => <ExerciseState>[
         tExerciseLoadedState.copyWith(
             displayOutput: '5', status: AnswerStatus.entering),
         tExerciseLoadedState.copyWith(
@@ -93,14 +92,14 @@ void main() {
       },
     );
 
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+    blocTest<ExerciseBloc, ExerciseState>(
       'emits [entering, incorrect] and resets for incorrect answer',
       build: () {
         when(mockGenerateMultiplicationExercise(any))
             .thenAnswer((_) async => const Right(tExercise));
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       seed: () => tExerciseLoadedState,
@@ -110,7 +109,7 @@ void main() {
         // Wait for the delay inside the bloc to complete
         await Future.delayed(const Duration(milliseconds: 1100));
       },
-      expect: () => <MultiplicationExerciseState>[
+      expect: () => <ExerciseState>[
         tExerciseLoadedState.copyWith(
             displayOutput: '1', status: AnswerStatus.entering),
         tExerciseLoadedState.copyWith(
@@ -124,19 +123,19 @@ void main() {
       ],
     );
 
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+    blocTest<ExerciseBloc, ExerciseState>(
       'requests a new exercise when "AC" is pressed',
       build: () {
         when(mockGenerateMultiplicationExercise(any))
             .thenAnswer((_) async => const Right(tExercise));
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       seed: () => tExerciseLoadedState.copyWith(displayOutput: '999'),
       act: (bloc) => bloc.add(const ButtonPressed('AC')),
-      expect: () => <MultiplicationExerciseState>[
+      expect: () => <ExerciseState>[
         tExerciseLoadedState,
       ],
       verify: (_) {
@@ -144,50 +143,52 @@ void main() {
       },
     );
 
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
-      'does not allow input beyond product length',
-      build: () {
-        when(mockGenerateMultiplicationExercise(any))
-            .thenAnswer((_) async => const Right(tExercise)); // Product is 56 (length 2)
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
-        );
-      },
-      act: (bloc) async {
-        bloc.add(const ButtonPressed('5'));
-        bloc.add(const ButtonPressed('6')); // This makes _userInput "56"
-        bloc.add(const ButtonPressed('7')); // This input should be ignored
-      },
-      expect: () => <MultiplicationExerciseState>[
-        tExerciseLoadedState,
-        tExerciseLoadedState.copyWith(displayOutput: '5', status: AnswerStatus.entering),
-        tExerciseLoadedState.copyWith(displayOutput: '56', status: AnswerStatus.entering),
-        tExerciseLoadedState.copyWith(displayOutput: '56', status: AnswerStatus.correct),
-        // No state change is expected after pressing '7' because it's beyond the product length (2)
-      ],
-      verify: (_) {
-        verify(mockGenerateMultiplicationExercise(any)).called(1); // Called during bloc init
-      }
-    );
+    blocTest<ExerciseBloc, ExerciseState>(
+        'does not allow input beyond product length',
+        build: () {
+          when(mockGenerateMultiplicationExercise(any)).thenAnswer(
+              (_) async => const Right(tExercise)); // Product is 56 (length 2)
+          return ExerciseBloc(
+            generateExercise: mockGenerateMultiplicationExercise,
+            operandConfigCubit: mockOperandConfigCubit,
+          );
+        },
+        act: (bloc) async {
+          bloc.add(const ButtonPressed('5'));
+          bloc.add(const ButtonPressed('6')); // This makes _userInput "56"
+          bloc.add(const ButtonPressed('7')); // This input should be ignored
+        },
+        expect: () => <ExerciseState>[
+              tExerciseLoadedState,
+              tExerciseLoadedState.copyWith(
+                  displayOutput: '5', status: AnswerStatus.entering),
+              tExerciseLoadedState.copyWith(
+                  displayOutput: '56', status: AnswerStatus.entering),
+              tExerciseLoadedState.copyWith(
+                  displayOutput: '56', status: AnswerStatus.correct),
+              // No state change is expected after pressing '7' because it's beyond the product length (2)
+            ],
+        verify: (_) {
+          verify(mockGenerateMultiplicationExercise(any))
+              .called(1); // Called during bloc init
+        });
   });
 
   group('BackspacePressed', () {
-    const tExerciseLarge =
-        MultiplicationExercise(multiplicand: 10, multiplier: 10, product: 100);
-    const tExerciseLargeLoadedState = MultiplicationExerciseState(
+    const tExerciseLarge = Exercise(operand1: 10, operand2: 10, result: 100);
+    const tExerciseLargeLoadedState = ExerciseState(
         exercise: tExerciseLarge,
         displayOutput: '10 × 10',
         status: AnswerStatus.initial);
 
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+    blocTest<ExerciseBloc, ExerciseState>(
       'removes last character from input',
       build: () {
         when(mockGenerateMultiplicationExercise(any))
             .thenAnswer((_) async => const Right(tExerciseLarge));
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       act: (bloc) async {
@@ -206,14 +207,14 @@ void main() {
       ],
     );
 
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+    blocTest<ExerciseBloc, ExerciseState>(
       'resets to question when input becomes empty',
       build: () {
         when(mockGenerateMultiplicationExercise(any))
             .thenAnswer((_) async => const Right(tExercise));
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       act: (bloc) async {
@@ -230,34 +231,31 @@ void main() {
     );
   });
 
-  group('MultiplicandConfigChanged', () {
-    blocTest<MultiplicationExerciseBloc, MultiplicationExerciseState>(
+  group('OperandConfigChanged', () {
+    blocTest<ExerciseBloc, ExerciseState>(
       'requests new exercise when configuration changes',
       build: () {
         var callCount = 0;
-        when(mockGenerateMultiplicationExercise(any))
-            .thenAnswer((_) async {
-              callCount++;
-              if (callCount == 1) {
-                return const Right(tExercise);
-              }
-              return const Right(MultiplicationExercise(
-                  multiplicand: 2, multiplier: 3, product: 6));
-            });
-        return MultiplicationExerciseBloc(
-          generateMultiplicationExercise: mockGenerateMultiplicationExercise,
-          multiplicandConfigCubit: mockMultiplicandConfigCubit,
+        when(mockGenerateMultiplicationExercise(any)).thenAnswer((_) async {
+          callCount++;
+          if (callCount == 1) {
+            return const Right(tExercise);
+          }
+          return const Right(Exercise(operand1: 2, operand2: 3, result: 6));
+        });
+        return ExerciseBloc(
+          generateExercise: mockGenerateMultiplicationExercise,
+          operandConfigCubit: mockOperandConfigCubit,
         );
       },
       act: (bloc) {
-        multiplicandConfigStreamController.add(
-            const MultiplicandConfigState(selectedMultiplicands: [1, 2]));
+        operandConfigStreamController
+            .add(const OperandConfigState(selectedOperands1: [1, 2]));
       },
       expect: () => [
         tExerciseLoadedState, // Initial load
         tExerciseLoadedState.copyWith(
-            exercise: const MultiplicationExercise(
-                multiplicand: 2, multiplier: 3, product: 6),
+            exercise: const Exercise(operand1: 2, operand2: 3, result: 6),
             displayOutput: '2 × 3',
             status: AnswerStatus.initial), // Reload after config change
       ],

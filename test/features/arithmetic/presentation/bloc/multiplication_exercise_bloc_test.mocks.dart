@@ -9,17 +9,17 @@ import 'package:bloc/bloc.dart' as _i11;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:tap_and_learn/core/error/faiures.dart' as _i9;
-import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/entities/exercise.dart'
     as _i10;
 import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart'
     as _i2;
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart'
     as _i7;
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_multiplicands.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_operands1.dart'
     as _i4;
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/save_selected_multiplicands.dart'
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/save_selected_operands1.dart'
     as _i5;
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart'
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart'
     as _i6;
 
 // ignore_for_file: type=lint
@@ -56,9 +56,9 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-class _FakeGetSelectedMultiplicands_2 extends _i1.SmartFake
-    implements _i4.GetSelectedMultiplicands {
-  _FakeGetSelectedMultiplicands_2(
+class _FakeGetSelectedOperands1_2 extends _i1.SmartFake
+    implements _i4.GetSelectedOperands1 {
+  _FakeGetSelectedOperands1_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -67,9 +67,9 @@ class _FakeGetSelectedMultiplicands_2 extends _i1.SmartFake
         );
 }
 
-class _FakeSaveSelectedMultiplicands_3 extends _i1.SmartFake
-    implements _i5.SaveSelectedMultiplicands {
-  _FakeSaveSelectedMultiplicands_3(
+class _FakeSaveSelectedOperands1_3 extends _i1.SmartFake
+    implements _i5.SaveSelectedOperands1 {
+  _FakeSaveSelectedOperands1_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -78,9 +78,9 @@ class _FakeSaveSelectedMultiplicands_3 extends _i1.SmartFake
         );
 }
 
-class _FakeMultiplicandConfigState_4 extends _i1.SmartFake
-    implements _i6.MultiplicandConfigState {
-  _FakeMultiplicandConfigState_4(
+class _FakeOperandConfigState_4 extends _i1.SmartFake
+    implements _i6.OperandConfigState {
+  _FakeOperandConfigState_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -89,12 +89,11 @@ class _FakeMultiplicandConfigState_4 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [GenerateMultiplicationExercise].
+/// A class which mocks [GenerateExercise].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGenerateMultiplicationExercise extends _i1.Mock
-    implements _i7.GenerateMultiplicationExercise {
-  MockGenerateMultiplicationExercise() {
+class MockGenerateExercise extends _i1.Mock implements _i7.GenerateExercise {
+  MockGenerateExercise() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -108,68 +107,64 @@ class MockGenerateMultiplicationExercise extends _i1.Mock
       ) as _i2.ArithmeticRepository);
 
   @override
-  _i8.Future<_i3.Either<_i9.Failure, _i10.MultiplicationExercise>> call(
-          _i7.Params? params) =>
+  _i8.Future<_i3.Either<_i9.Failure, _i10.Exercise>> call(_i7.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8
-            .Future<_i3.Either<_i9.Failure, _i10.MultiplicationExercise>>.value(
-            _FakeEither_1<_i9.Failure, _i10.MultiplicationExercise>(
+        returnValue: _i8.Future<_i3.Either<_i9.Failure, _i10.Exercise>>.value(
+            _FakeEither_1<_i9.Failure, _i10.Exercise>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i3.Either<_i9.Failure, _i10.MultiplicationExercise>>);
+      ) as _i8.Future<_i3.Either<_i9.Failure, _i10.Exercise>>);
 }
 
-/// A class which mocks [MultiplicandConfigCubit].
+/// A class which mocks [OperandConfigCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMultiplicandConfigCubit extends _i1.Mock
-    implements _i6.MultiplicandConfigCubit {
-  MockMultiplicandConfigCubit() {
+class MockOperandConfigCubit extends _i1.Mock
+    implements _i6.OperandConfigCubit {
+  MockOperandConfigCubit() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GetSelectedMultiplicands get getSelectedMultiplicands =>
-      (super.noSuchMethod(
-        Invocation.getter(#getSelectedMultiplicands),
-        returnValue: _FakeGetSelectedMultiplicands_2(
+  _i4.GetSelectedOperands1 get getSelectedOperands1 => (super.noSuchMethod(
+        Invocation.getter(#getSelectedOperands1),
+        returnValue: _FakeGetSelectedOperands1_2(
           this,
-          Invocation.getter(#getSelectedMultiplicands),
+          Invocation.getter(#getSelectedOperands1),
         ),
-      ) as _i4.GetSelectedMultiplicands);
+      ) as _i4.GetSelectedOperands1);
 
   @override
-  _i5.SaveSelectedMultiplicands get saveSelectedMultiplicands =>
-      (super.noSuchMethod(
-        Invocation.getter(#saveSelectedMultiplicands),
-        returnValue: _FakeSaveSelectedMultiplicands_3(
+  _i5.SaveSelectedOperands1 get saveSelectedOperands1 => (super.noSuchMethod(
+        Invocation.getter(#saveSelectedOperands1),
+        returnValue: _FakeSaveSelectedOperands1_3(
           this,
-          Invocation.getter(#saveSelectedMultiplicands),
+          Invocation.getter(#saveSelectedOperands1),
         ),
-      ) as _i5.SaveSelectedMultiplicands);
+      ) as _i5.SaveSelectedOperands1);
 
   @override
-  _i6.MultiplicandConfigState get state => (super.noSuchMethod(
+  _i6.OperandConfigState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeMultiplicandConfigState_4(
+        returnValue: _FakeOperandConfigState_4(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i6.MultiplicandConfigState);
+      ) as _i6.OperandConfigState);
 
   @override
-  _i8.Stream<_i6.MultiplicandConfigState> get stream => (super.noSuchMethod(
+  _i8.Stream<_i6.OperandConfigState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i8.Stream<_i6.MultiplicandConfigState>.empty(),
-      ) as _i8.Stream<_i6.MultiplicandConfigState>);
+        returnValue: _i8.Stream<_i6.OperandConfigState>.empty(),
+      ) as _i8.Stream<_i6.OperandConfigState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -178,28 +173,28 @@ class MockMultiplicandConfigCubit extends _i1.Mock
       ) as bool);
 
   @override
-  _i8.Future<void> toggleMultiplicand(int? multiplicand) => (super.noSuchMethod(
+  _i8.Future<void> toggleOperand(int? operand) => (super.noSuchMethod(
         Invocation.method(
-          #toggleMultiplicand,
-          [multiplicand],
+          #toggleOperand,
+          [operand],
         ),
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
 
   @override
-  _i8.Future<void> updateMultiplicands(List<int>? newMultiplicands) =>
+  _i8.Future<void> updateOperands1(List<int>? newOperands) =>
       (super.noSuchMethod(
         Invocation.method(
-          #updateMultiplicands,
-          [newMultiplicands],
+          #updateOperands1,
+          [newOperands],
         ),
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
 
   @override
-  void emit(_i6.MultiplicandConfigState? state) => super.noSuchMethod(
+  void emit(_i6.OperandConfigState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -208,7 +203,7 @@ class MockMultiplicandConfigCubit extends _i1.Mock
       );
 
   @override
-  void onChange(_i11.Change<_i6.MultiplicandConfigState>? change) =>
+  void onChange(_i11.Change<_i6.OperandConfigState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,

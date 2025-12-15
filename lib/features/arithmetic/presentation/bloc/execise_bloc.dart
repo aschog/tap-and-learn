@@ -3,31 +3,30 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:tap_and_learn/features/arithmetic/domain/entities/multiplication_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_multiplication_exercise.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/entities/exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/generate_exercise.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 
-part 'multiplication_exercise_event.dart';
-part 'multiplication_exercise_state.dart';
+part 'exercise_event.dart';
+part 'exercise_state.dart';
 
-class MultiplicationExerciseBloc
-    extends Bloc<MultiplicationExerciseEvent, MultiplicationExerciseState> {
-  final GenerateMultiplicationExercise generateMultiplicationExercise;
-  final MultiplicandConfigCubit multiplicandConfigCubit;
-  late StreamSubscription _multiplicandSubscription;
+class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
+  final GenerateExercise generateExercise;
+  final OperandConfigCubit operandConfigCubit;
+  late StreamSubscription _operandSubscription;
   String _userInput = '';
   bool _isShowingExercise = true;
 
-  MultiplicationExerciseBloc({
-    required this.generateMultiplicationExercise,
-    required this.multiplicandConfigCubit,
-  }) : super(const MultiplicationExerciseState(
+  ExerciseBloc({
+    required this.generateExercise,
+    required this.operandConfigCubit,
+  }) : super(const ExerciseState(
             displayOutput: '0', status: AnswerStatus.initial)) {
     on<ExerciseRequested>(_onExerciseRequested);
     on<ButtonPressed>(_onButtonPressed);
     on<BackspacePressed>(_onBackspacePressed);
 
-    _multiplicandSubscription = multiplicandConfigCubit.stream.listen((state) {
+    _operandSubscription = operandConfigCubit.stream.listen((state) {
       add(ExerciseRequested());
     });
 
@@ -36,23 +35,23 @@ class MultiplicationExerciseBloc
 
   @override
   Future<void> close() {
-    _multiplicandSubscription.cancel();
+    _operandSubscription.cancel();
     return super.close();
   }
 
   Future<void> _onExerciseRequested(
     ExerciseRequested event,
-    Emitter<MultiplicationExerciseState> emit,
+    Emitter<ExerciseState> emit,
   ) async {
     _userInput = '';
     _isShowingExercise = true;
-    final failureOrExercise = await generateMultiplicationExercise(Params(
-        multiplicands: multiplicandConfigCubit.state.selectedMultiplicands));
+    final failureOrExercise = await generateExercise(
+        Params(operands1: operandConfigCubit.state.selectedOperands1));
     failureOrExercise.fold(
       (failure) => emit(
           state.copyWith(displayOutput: 'Error', status: AnswerStatus.error)),
       (exercise) {
-        final display = '${exercise.multiplicand} × ${exercise.multiplier}';
+        final display = '${exercise.operand1} × ${exercise.operand2}';
         emit(state.copyWith(
             exercise: exercise,
             displayOutput: display,
@@ -62,7 +61,7 @@ class MultiplicationExerciseBloc
   }
 
   Future<void> _onButtonPressed(
-      ButtonPressed event, Emitter<MultiplicationExerciseState> emit) async {
+      ButtonPressed event, Emitter<ExerciseState> emit) async {
     final buttonText = event.buttonText;
     final exercise = state.exercise;
 
@@ -73,7 +72,7 @@ class MultiplicationExerciseBloc
     }
 
     if (int.tryParse(buttonText) != null) {
-      final product = (exercise!.multiplicand * exercise.multiplier).toString();
+      final product = (exercise!.operand1 * exercise.operand2).toString();
 
       // Prevent typing more digits than the product length
       if (_userInput.length >= product.length) {
@@ -98,12 +97,11 @@ class MultiplicationExerciseBloc
           }
         } else {
           emit(state.copyWith(
-              displayOutput:
-                  '${exercise.multiplicand} × ${exercise.multiplier}',
+              displayOutput: '${exercise.operand1} × ${exercise.operand2}',
               status: AnswerStatus.incorrect));
           await Future.delayed(const Duration(seconds: 1)); // Wait for 1 second
           _userInput = '';
-          final display = '${exercise.multiplicand} × ${exercise.multiplier}';
+          final display = '${exercise.operand1} × ${exercise.operand2}';
           _isShowingExercise = true;
           if (!isClosed) {
             emit(state.copyWith(
@@ -117,7 +115,7 @@ class MultiplicationExerciseBloc
   }
 
   void _onBackspacePressed(
-      BackspacePressed event, Emitter<MultiplicationExerciseState> emit) {
+      BackspacePressed event, Emitter<ExerciseState> emit) {
     if (state.status == AnswerStatus.correct ||
         state.status == AnswerStatus.incorrect) {
       return;
@@ -128,7 +126,7 @@ class MultiplicationExerciseBloc
       if (_userInput.isEmpty) {
         _isShowingExercise = true;
         final display =
-            '${state.exercise!.multiplicand} × ${state.exercise!.multiplier}';
+            '${state.exercise!.operand1} × ${state.exercise!.operand2}';
         emit(state.copyWith(
             displayOutput: display, status: AnswerStatus.initial));
       } else {

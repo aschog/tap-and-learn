@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tap_and_learn/config/theme/app_colors.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/bloc/multiplication_execise_bloc.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/bloc/execise_bloc.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
 import 'package:tap_and_learn/features/arithmetic/presentation/widgets/keypad.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/operand_selector.dart';
 import 'package:tap_and_learn/injection_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tap_and_learn/l10n/app_localizations.dart';
@@ -16,10 +16,10 @@ class MultiplicationTrainerScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<MultiplicandConfigCubit>(),
+          create: (context) => sl<OperandConfigCubit>(),
         ),
         BlocProvider(
-          create: (context) => sl<MultiplicationExerciseBloc>(),
+          create: (context) => sl<ExerciseBloc>(),
         ),
       ],
       child: const _MultiplicationTrainerView(),
@@ -28,9 +28,7 @@ class MultiplicationTrainerScreen extends StatelessWidget {
 }
 
 class _MultiplicationTrainerView extends StatefulWidget {
-  const _MultiplicationTrainerView({
-    super.key,
-  });
+  const _MultiplicationTrainerView();
 
   @override
   State<_MultiplicationTrainerView> createState() =>
@@ -45,8 +43,8 @@ class _MultiplicationTrainerViewState
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Center(
-          child: BlocBuilder<MultiplicationExerciseBloc,
-              MultiplicationExerciseState>(builder: (context, state) {
+          child: BlocBuilder<ExerciseBloc, ExerciseState>(
+              builder: (context, state) {
             return _buildScreen(context, state);
           }),
         ),
@@ -54,7 +52,7 @@ class _MultiplicationTrainerViewState
     );
   }
 
-  Widget _buildScreen(BuildContext context, MultiplicationExerciseState state) {
+  Widget _buildScreen(BuildContext context, ExerciseState state) {
     final gameColors = Theme.of(context).extension<GameThemeColors>()!;
     Color displayColor = gameColors.textMainColor!;
     if (state.status == AnswerStatus.incorrect) {
@@ -94,7 +92,7 @@ class _MultiplicationTrainerViewState
                     ),
                     tooltip: AppLocalizations.of(context)!.multiplicationInfo,
                   ),
-                  const MultiplicandSelector(),
+                  const OperandSelector(),
                 ],
               ),
             ),
@@ -111,15 +109,12 @@ class _MultiplicationTrainerViewState
             ),
             const Spacer(),
             Keypad(
-              onNumberTap: (number) => context
-                  .read<MultiplicationExerciseBloc>()
-                  .add(ButtonPressed(number)),
-              onBackspaceTap: () => context
-                  .read<MultiplicationExerciseBloc>()
-                  .add(BackspacePressed()),
-              onRefreshTap: () => context
-                  .read<MultiplicationExerciseBloc>()
-                  .add(ExerciseRequested()),
+              onNumberTap: (number) =>
+                  context.read<ExerciseBloc>().add(ButtonPressed(number)),
+              onBackspaceTap: () =>
+                  context.read<ExerciseBloc>().add(BackspacePressed()),
+              onRefreshTap: () =>
+                  context.read<ExerciseBloc>().add(ExerciseRequested()),
             ),
             const SizedBox(height: 40),
           ],
@@ -154,7 +149,7 @@ class _MultiplicationTrainerViewState
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: l10n.multiplicand,
+                    text: l10n.operand,
                     style: TextStyle(color: gameColors.numberBtnColor2),
                   ),
                   TextSpan(

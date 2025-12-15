@@ -104,11 +104,11 @@ abstract class AppLocalizations {
   /// **'Multiplication Trainer'**
   String get appTitle;
 
-  /// No description provided for @selectMultiplicands.
+  /// No description provided for @selectOperands.
   ///
   /// In en, this message translates to:
-  /// **'Select Multiplicands'**
-  String get selectMultiplicands;
+  /// **'Select Operands'**
+  String get selectOperands;
 
   /// No description provided for @apply.
   ///
@@ -134,11 +134,11 @@ abstract class AppLocalizations {
   /// **'Multiplication is repeated addition.'**
   String get multiplicationDescription;
 
-  /// No description provided for @multiplicand.
+  /// No description provided for @operand.
   ///
   /// In en, this message translates to:
-  /// **'Multiplicand'**
-  String get multiplicand;
+  /// **'Operand'**
+  String get operand;
 
   /// No description provided for @multiplier.
   ///

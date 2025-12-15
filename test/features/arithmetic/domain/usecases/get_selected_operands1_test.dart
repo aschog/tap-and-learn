@@ -4,31 +4,31 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tap_and_learn/core/usecases/usecase.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
-import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_multiplicands.dart';
+import 'package:tap_and_learn/features/arithmetic/domain/usecases/get_selected_operands1.dart';
 
-import 'get_selected_multiplicands_test.mocks.dart';
+import 'get_selected_operands1_test.mocks.dart';
 
 @GenerateMocks([ArithmeticRepository])
 void main() {
-  late GetSelectedMultiplicands usecase;
+  late GetSelectedOperands1 usecase;
   late MockArithmeticRepository mockRepository;
 
   setUp(() {
     mockRepository = MockArithmeticRepository();
-    usecase = GetSelectedMultiplicands(mockRepository);
+    usecase = GetSelectedOperands1(mockRepository);
   });
 
-  final tMultiplicands = [1, 2, 3];
+  final tOperands = [1, 2, 3];
 
-  test('should get list of multiplicands from the repository', () async {
+  test('should get list of operands from the repository', () async {
     // arrange
-    when(mockRepository.getSelectedMultiplicands())
-        .thenAnswer((_) async => Right(tMultiplicands));
+    when(mockRepository.getSelectedOperands1())
+        .thenAnswer((_) async => Right(tOperands));
     // act
     final result = await usecase(NoParams());
     // assert
-    expect(result, Right(tMultiplicands));
-    verify(mockRepository.getSelectedMultiplicands());
+    expect(result, Right(tOperands));
+    verify(mockRepository.getSelectedOperands1());
     verifyNoMoreInteractions(mockRepository);
   });
 }

@@ -63,12 +63,12 @@ void main() {
       final parts = questionText.split(' × ');
       expect(parts.length, 2, reason: 'Question format should be A × B');
 
-      final multiplicand = int.parse(parts[0]);
-      final multiplier = int.parse(parts[1]);
-      final product = multiplicand * multiplier;
+      final operand1 = int.parse(parts[0]);
+      final operand2 = int.parse(parts[1]);
+      final product = operand1 * operand2;
       final productStr = product.toString();
 
-      print('Found question: $questionText, Expected answer: $productStr');
+      // print('Found question: $questionText, Expected answer: $productStr');
 
       for (var char in productStr.split('')) {
         await tester.tap(findKey(char));
@@ -86,13 +86,13 @@ void main() {
       expect(find.textContaining('×'), findsOneWidget);
       final newQuestionText =
           tester.widget<Text>(find.byKey(const Key('display_output'))).data!;
-      print('New question: $newQuestionText');
+      // print('New question: $newQuestionText');
 
       // Parse new question to check if we can test backspace
       final newParts = newQuestionText.split(' × ');
-      final newMultiplicand = int.parse(newParts[0]);
-      final newMultiplier = int.parse(newParts[1]);
-      final newProductLength = (newMultiplicand * newMultiplier).toString().length;
+      final newOperand1 = int.parse(newParts[0]);
+      final newOperand2 = int.parse(newParts[1]);
+      final newProductLength = (newOperand1 * newOperand2).toString().length;
 
       // Only test backspace if typing '1' won't trigger immediate validation (i.e., product length > 1)
       // Also ensure '1' isn't the start of the correct answer if we care (but here we just want to see '1')
@@ -109,8 +109,8 @@ void main() {
 
         expectDisplay(tester, newQuestionText);
       } else {
-        print(
-            'Skipping backspace test because product length is 1 (Question: $newQuestionText)');
+        // print(
+        //     'Skipping backspace test because product length is 1 (Question: $newQuestionText)');
       }
 
       final settingsButton = find.byIcon(Icons.settings);
@@ -118,7 +118,7 @@ void main() {
       await tester.pumpAndSettle();
       await slowDown(tester);
 
-      await tester.tap(find.byKey(const ValueKey('multiplicand_5')));
+      await tester.tap(find.byKey(const ValueKey('operand1_5')));
       await tester.pump();
       await slowDown(tester);
 
@@ -147,8 +147,8 @@ void main() {
         wrongAnswerStr = (correctProduct - 1).toString();
       }
 
-      print(
-          'Question: $questionText, Correct: $correctProduct, Inputting Wrong: $wrongAnswerStr');
+      // print(
+      //     'Question: $questionText, Correct: $correctProduct, Inputting Wrong: $wrongAnswerStr');
 
       for (var char in wrongAnswerStr.split('')) {
         await tester.tap(findKey(char));

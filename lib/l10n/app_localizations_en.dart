@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Multiplication Trainer';
 
   @override
-  String get selectMultiplicands => 'Select Multiplicands';
+  String get selectOperands => 'Select Operands';
 
   @override
   String get apply => 'APPLY';
@@ -28,7 +28,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Multiplication is repeated addition.';
 
   @override
-  String get multiplicand => 'Multiplicand';
+  String get operand => 'Operand';
 
   @override
   String get multiplier => 'Multiplier';

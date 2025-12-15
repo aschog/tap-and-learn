@@ -4,22 +4,22 @@ import 'package:tap_and_learn/core/error/faiures.dart';
 import 'package:tap_and_learn/core/usecases/usecase.dart';
 import 'package:tap_and_learn/features/arithmetic/domain/repositories/arithmetic_repository.dart';
 
-class SaveSelectedMultiplicands implements UseCase<void, Params> {
+class SaveSelectedOperands1 implements UseCase<void, Params> {
   final ArithmeticRepository repository;
 
-  SaveSelectedMultiplicands(this.repository);
+  SaveSelectedOperands1(this.repository);
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    return await repository.saveSelectedMultiplicands(params.multiplicands);
+    return await repository.saveSelectedOperands1(params.operands1);
   }
 }
 
 class Params extends Equatable {
-  final List<int> multiplicands;
+  final List<int> operands1;
 
-  const Params({required this.multiplicands});
+  const Params({required this.operands1});
 
   @override
-  List<Object?> get props => [multiplicands];
+  List<Object?> get props => [operands1];
 }

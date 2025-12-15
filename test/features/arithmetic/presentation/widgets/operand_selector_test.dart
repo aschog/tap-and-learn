@@ -7,26 +7,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:tap_and_learn/config/theme/app_colors.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/cubit/multiplicand_config_cubit.dart';
-import 'package:tap_and_learn/features/arithmetic/presentation/widgets/multiplicand_selector/multiplicand_selector.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/cubit/operand_config_cubit.dart';
+import 'package:tap_and_learn/features/arithmetic/presentation/widgets/operand_selector/operand_selector.dart';
 import 'package:tap_and_learn/l10n/app_localizations.dart';
 
-class MockMultiplicandConfigCubit extends MockCubit<MultiplicandConfigState>
-    implements MultiplicandConfigCubit {}
+class MockOperandConfigCubit extends MockCubit<OperandConfigState>
+    implements OperandConfigCubit {}
 
 void main() {
-  late MockMultiplicandConfigCubit mockCubit;
+  late MockOperandConfigCubit mockCubit;
 
   setUp(() {
-    mockCubit = MockMultiplicandConfigCubit();
-    when(() => mockCubit.updateMultiplicands(any())).thenAnswer((_) async {});
+    mockCubit = MockOperandConfigCubit();
+    when(() => mockCubit.updateOperands1(any())).thenAnswer((_) async {});
   });
 
-  testWidgets('MultiplicandSelector opens menu and interacts with cubit',
+  testWidgets('OperandSelector opens menu and interacts with cubit',
       (WidgetTester tester) async {
     // Stub the state
-    const initialState = MultiplicandConfigState(
-      selectedMultiplicands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    const initialState = OperandConfigState(
+      selectedOperands1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     );
     whenListen(
       mockCubit,
@@ -50,9 +50,9 @@ void main() {
           ],
         ),
         home: Scaffold(
-          body: BlocProvider<MultiplicandConfigCubit>.value(
+          body: BlocProvider<OperandConfigCubit>.value(
             value: mockCubit,
-            child: const MultiplicandSelector(),
+            child: const OperandSelector(),
           ),
         ),
       ),
@@ -72,9 +72,9 @@ void main() {
     await tester.tap(find.widgetWithText(MenuItemButton, '1'));
     await tester.pump();
 
-    // Verify toggleMultiplicand was NOT called (changes are local)
-    verifyNever(() => mockCubit.toggleMultiplicand(any()));
-    verifyNever(() => mockCubit.updateMultiplicands(any()));
+    // Verify toggleOperand was NOT called (changes are local)
+    verifyNever(() => mockCubit.toggleOperand(any()));
+    verifyNever(() => mockCubit.updateOperands1(any()));
 
     // Verify visual update (checkmark should be gone)
     expect(find.text('APPLY'), findsOneWidget);
@@ -83,12 +83,13 @@ void main() {
     await tester.tap(find.text('APPLY'));
     await tester.pumpAndSettle();
 
-    // Verify updateMultiplicands was called with expected list (1 removed from 0-9)
+    // Verify updateOperands1 was called with expected list (1 removed from 0-9)
     // [0, 2, 3, 4, 5, 6, 7, 8, 9]
     final expected = [0, 2, 3, 4, 5, 6, 7, 8, 9];
-    verify(() => mockCubit.updateMultiplicands(expected)).called(1);
+    verify(() => mockCubit.updateOperands1(expected)).called(1);
 
     // Verify menu closed
     expect(find.text('APPLY'), findsNothing);
   });
 }
+
